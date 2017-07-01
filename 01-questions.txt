@@ -1,0 +1,4 @@
+Q1: Find total sales for each product
+Q2: Find the product which does not have a sales at all
+Q3: Write a SQL query to find the products whose sales decreased in 2012 compared to 2011?
+Q4: Write a query to select the top product sold in each year
