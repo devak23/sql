@@ -98,4 +98,23 @@ WHERE s.QUANTITY > (
   WHERE s2.PRODUCT_ID = s.PRODUCT_ID
 );
 
+-- Q8: Write a query to compare the products sales of "IPhone" and "Samsung" in each year
+-- Ans:
+SELECT
+  ss.YEAR
+  , si.QUANTITY as IPHONE_QUANT
+  , ss.QUANTITY as SAM_QUANT
+  , si.PRICE as IPHONE_PRICE
+  , ss.PRICE as SAM_PRICE
+FROM PRODUCTS pi, PRODUCTS ps, SALES si, SALES ss
+WHERE pi.PRODUCT_ID = si.PRODUCT_ID
+AND ps.PRODUCT_ID = ss.PRODUCT_ID
+AND pi.PRODUCT_NAME = 'iPhone'
+AND ps.PRODUCT_NAME = 'Samsung'
+AND si.YEAR = ss.YEAR;
 
+-- Q9: Write a query to find the number of products sold in each year
+-- Ans:
+SELECT year, count(QUANTITY)
+from SALES
+GROUP BY year;

@@ -5,3 +5,10 @@ Q4: Write a query to select the top product sold in each year
 Q5: Write a query to find the average quantity of product sold so far
 Q6: Q6: Write a query to find the products who sold more than 10 quantities in a given year
 Q7: Write a query to find the products whose quantity sold in a year is greater than the average quantity of the product sold across all the years
+Q8: Write a query to compare the products sales of "IPhone" and "Samsung" in each year. The output should look as follows
+    YEAR IPHONE_QUANT SAM_QUANT IPHONE_PRICE SAM_PRICE
+    ---------------------------------------------------
+    2010   10           20       9000         7000
+    2011   15           18       9000         7000
+    2012   20           20       9000         7000
+Q9: Write a query to find the number of products sold in each year
