@@ -16,3 +16,25 @@
 16. List the emp who are working for the Deptno 10 or20
 17. List the emps who are joined in the year 81
 18. List the emps who are joined in the month of Feb 1981
+19. List the emps Who Annual sal ranges from 22000 and 45000
+20. List the Enames those are having five characters in their Names.
+21. List the Enames those are starting with ‘T’ and with five characters.
+22. List the emps those are having four chars and third character must be ‘r’.
+23. List the Five character names starting with ‘S’ and ending with ‘H’.
+24. List the emps who joined in January.
+25. List the emps who joined in the month of which second character is ‘a’.
+26. List the emps whose Sal is four digit number ending with Zero
+27. List the emps whose names having a character set ‘ll’ together
+28. List the emps those who joined in 80’s
+29. List the emps who does not belong to Deptno 20.
+30. List all the emps except ‘PRESIDENT’ & ‘MGR” in asc order of Salaries.
+31. List all the emps who joined before or after 1981
+32. List the emps whose Empno not starting with digit 78
+33. List the emps who are working under ‘MGR’
+34. List the emps who joined in any year but not belongs to the month of March
+35. List all the Clerks of Deptno 20.
+36. List the emps of Deptno 30 or 10 joined in the year 1981.
+37. Display the details of SMITH.
+38. Display the location of  SMITH.
+39. List the total information of EMP table along with DNAME and Loc of all the emps Working Under ‘ACCOUNTING’ & ‘RESEARCH’ in the asc Deptno.
+40. List the Empno, Ename, Sal, Dname of all the ‘MGRS’ and ‘ANALYST’ working in New York, Dallas with an exp more than 7 years without receiving the Comm asc order of Loc

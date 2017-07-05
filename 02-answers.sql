@@ -75,3 +75,83 @@ WHERE HIREDATE BETWEEN '1981-01-01' AND '1982-01-01';
 SELECT * FROM EMP
 WHERE HIREDATE BETWEEN '1981-02-01' AND '1981-03-01';
 
+
+-- 19. List the emps Who Annual sal ranges from 22000 and 45000
+SELECT * FROM EMP WHERE SAL * 12 BETWEEN 22000 and 45000;
+
+-- 20. List the Enames those are having five characters in their Names.
+SELECT ENAME FROM EMP WHERE length(ENAME) > 5;
+
+-- 21. List the Enames those are starting with ‘T’ and with five characters.
+SELECT ENAME FROM EMP WHERE length(ENAME) > 5 AND ENAME like 'T%';
+
+-- 22. List the emps those are having four chars and third character must be ‘r’.
+SELECT ENAME FROM EMP WHERE length(ENAME) = 4 AND ENAME LIKE '__r%';
+
+-- 23. List the Five character names starting with ‘S’ and ending with ‘H’.
+SELECT ENAME FROM EMP WHERE length(ENAME) = 5 AND ENAME LIKE 'S%H';
+
+-- 24. List the emps who joined in January.
+SELECT * FROM EMP WHERE month(HIREDATE) = 01;
+
+-- 25. List the emps who joined in the month of which second character is ‘a’.
+SELECT * FROM EMP WHERE monthname(HIREDATE) like '_a%';
+
+-- 26. List the emps whose Sal is four digit number ending with Zero
+SELECT * FROM EMP
+WHERE SAL BETWEEN 1000 and 10000
+AND CONVERT(SAL, CHAR) LIKE '%0.00';
+
+-- 27. List the emps whose names having a character set ‘ll’ together
+SELECT * FROM EMP WHERE ENAME like '%ll%';
+
+-- 28. List the emps those who joined in 80’s
+SELECT * FROM EMP WHERE year(HIREDATE) = 1980;
+
+-- 29. List the emps who does not belong to Deptno 20.
+SELECT * FROM EMP WHERE DEPTNO <> 20;
+
+-- 30. List all the emps except ‘PRESIDENT’ & ‘MGR” in asc order of Salaries.
+SELECT * FROM EMP WHERE JOB NOT IN ('PRESIDENT', 'MANAGER') ORDER BY SAL ASC;
+
+-- 31. List all the emps who joined before or after 1981
+SELECT * FROM EMP WHERE year(HIREDATE) <> 1981;
+
+-- 32. List the emps whose Empno not starting with digit 78
+SELECT * FROM EMP WHERE EMPNO NOT LIKE '78%';
+
+-- 33. List the emps who are working under ‘MGR’
+SELECT concat(e.ENAME,' works for ',m.ENAME)
+FROM EMP e, EMP m
+WHERE e.MGR = m.EMPNO;
+
+-- 34. List the emps who joined in any year but not belongs to the month of March
+SELECT * FROM EMP WHERE MONTH(HIREDATE) <> 3;
+
+-- 35. List all the Clerks of Deptno 20.
+SELECT * FROM EMP WHERE DEPTNO = 20 AND JOB = 'CLERK';
+
+-- 36. List the emps of Deptno 30 or 10 joined in the year 1981.
+SELECT * FROM EMP WHERE DEPTNO IN (30, 10) AND YEAR(HIREDATE) = 1981;
+
+-- 37. Display the details of SMITH.
+SELECT * FROM EMP WHERE ENAME = 'SMITH';
+
+-- 38. Display the location of  SMITH.
+SELECT LOC FROM DEPT WHERE DEPTNO = (
+  SELECT DEPTNO FROM EMP WHERE ENAME = 'SMITH'
+);
+
+SELECT LOC
+FROM EMP e
+  INNER JOIN DEPT d ON e.DEPTNO = d.DEPTNO
+AND e.ENAME = 'SMITH';
+
+-- 39. List the total information of EMP table along with DNAME and Loc of all the emps Working Under ‘ACCOUNTING’ & ‘RESEARCH’ in the asc Deptno.
+SELECT d.DNAME, d.LOC, e.*
+FROM EMP e
+  INNER JOIN DEPT d on e.DEPTNO = d.DEPTNO
+WHERE d.DNAME IN ('ACCOUNTING', 'RESEARCH')
+ORDER BY DEPTNO ASC;
+
+-- 40. List the Empno, Ename, Sal, Dname of all the ‘MGRS’ and ‘ANALYST’ working in New York, Dallas with an exp more than 7 years without receiving the Comm asc order of Loc
