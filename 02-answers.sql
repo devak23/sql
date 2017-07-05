@@ -61,3 +61,17 @@ ORDER BY JOB;
 SELECT * FROM EMP
 WHERE HIREDATE IN ('1981-05-01', '1981-12-03', '1981-12-17', '1980-01-19')
 ORDER BY HIREDATE ASC;
+
+-- 16. List the emp who are working for the Deptno 10 or20
+SELECT * FROM EMP e
+WHERE DEPTNO = 10
+OR DEPTNO = 20;
+
+-- 17. List the emps who are joined in the year 81
+SELECT * FROM EMP
+WHERE HIREDATE BETWEEN '1981-01-01' AND '1982-01-01';
+
+-- 18. List the emps who are joined in the month of Feb 1981
+SELECT * FROM EMP
+WHERE HIREDATE BETWEEN '1981-02-01' AND '1981-03-01';
+
