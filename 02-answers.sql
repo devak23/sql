@@ -137,7 +137,7 @@ SELECT * FROM EMP WHERE DEPTNO IN (30, 10) AND YEAR(HIREDATE) = 1981;
 -- 37. Display the details of SMITH.
 SELECT * FROM EMP WHERE ENAME = 'SMITH';
 
--- 38. Display the location of  SMITH.
+-- 38. Display the location of  SMITH. (dept table is being used)
 SELECT LOC FROM DEPT WHERE DEPTNO = (
   SELECT DEPTNO FROM EMP WHERE ENAME = 'SMITH'
 );
@@ -155,3 +155,33 @@ WHERE d.DNAME IN ('ACCOUNTING', 'RESEARCH')
 ORDER BY DEPTNO ASC;
 
 -- 40. List the Empno, Ename, Sal, Dname of all the ‘MGRS’ and ‘ANALYST’ working in New York, Dallas with an exp more than 7 years without receiving the Comm asc order of Loc
+SELECT e.EMPNO, e.ENAME, e.SAL, d.DEPTNO -- ,  e.JOB, DATEDIFF(NOW(), e.HIREDATE) / (12 * 30), d.LOC
+FROM EMP e
+  INNER JOIN DEPT d ON e.DEPTNO = d.DEPTNO
+WHERE e.JOB IN ('MANAGER','ANALYST')
+AND d.LOC IN ('New York', 'Dallas')
+AND DATEDIFF(NOW(), e.HIREDATE) / (12 * 30) > 7
+AND e.COMM IS NULL
+ORDER BY LOC ASC;
+
+-- 41. Display the Empno, Ename, Sal, Dname, Loc, Deptno, Job of all emps working at CHICAGO or working for ACCOUNTING dept with Ann Sal>28000, but the Sal should not be=3000 or 2800 and who doesn’t belong to "MANAGER" and whose no is having a digit ‘7’ or ‘8’ in 3rd position in the asc order of Deptno and desc order of job.
+SELECT e.EMPNO, e.ENAME, e.SAL, d.DNAME, d.LOC, d.DEPTNO
+FROM EMP e
+  INNER JOIN DEPT d on d.DEPTNO = e.DEPTNO
+WHERE ( d.LOC = 'CHICAGO' OR d.DNAME = 'ACCOUNTING')
+  AND e.SAL * 12 > 28000
+  AND e.SAL NOT IN (3000, 2800)
+  AND e.JOB <> 'MANAGER'
+  AND (e.EMPNO LIKE '__7%' OR e.EMPNO LIKE '__3%')
+ORDER BY d.DEPTNO ASC, e.JOB DESC;
+
+-- 42. Display the total information of the emps along with Grades in the asc order (salgrade table is now used)
+SELECT  s.GRADE, e.ENAME, e.SAL
+FROM EMP e, SALGRADE s
+WHERE e.SAL BETWEEN s.LOSAL and s.HISAL;
+
+-- 43. List all the Grade2 and Grade 3 emps.
+SELECT s.grade, e.*
+FROM EMP e, SALGRADE s
+WHERE s.GRADE IN (2,3)
+AND e.SAL BETWEEN s.LOSAL and s.HISAL;
