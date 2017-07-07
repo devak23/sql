@@ -185,3 +185,55 @@ SELECT s.grade, e.*
 FROM EMP e, SALGRADE s
 WHERE s.GRADE IN (2,3)
 AND e.SAL BETWEEN s.LOSAL and s.HISAL;
+
+-- 44. Display all Grade 4,5 Analyst and Mgr.
+SELECT s.GRADE, e.*
+FROM EMP e, SALGRADE s
+WHERE e.SAL BETWEEN s.LOSAL and s.HISAL
+  AND s.GRADE IN (4,5)
+  AND e.JOB IN ('MANAGER', 'ANALYST');
+
+-- 45. List the Empno, Ename, Sal, Dname, Grade, Exp, and Ann Sal of emps working for Dept 10 or 20
+SELECT e.EMPNO, e.ENAME, e.SAL, d.DNAME, s.GRADE, datediff(now(), e.HIREDATE)/(12*30) as EXP, e.SAL * 12 AS ANN_SAL
+FROM SALGRADE s, EMP e INNER JOIN DEPT d ON e.DEPTNO = d.DEPTNO
+WHERE e.SAL BETWEEN s.LOSAL and s.HISAL
+AND d.DEPTNO IN (10, 20);
+
+
+-- 46. List all the information of emp with Loc and the Grade of all the emps belong to the Grade range from 2 to 4 working at the Dept those are not starting with char set ‘OP’ and not ending with ‘S’ with the designation having a char ‘a’ any where joined in the year 1981 but not in the month of Mar or Sep and Sal not end with ‘00’ in the asc order of Grades
+SELECT s.GRADE, d.LOC, d.DNAME, e.*
+FROM SALGRADE s, EMP e INNER JOIN DEPT d ON d.DEPTNO = e.DEPTNO
+WHERE e.SAL BETWEEN s.LOSAL and s.HISAL
+AND d.DNAME NOT LIKE 'OP%'
+AND d.DNAME NOT LIKE '%S'
+AND e.JOB LIKE '%a%'
+AND year(e.HIREDATE) = 1981
+AND month(e.HIREDATE) NOT IN (03, 09)
+AND e.SAL NOT LIKE '%0.%'
+ORDER BY s.GRADE ASC;
+
+-- 47. List the details of the Depts along with Empno, Ename or without the emps
+SELECT e.EMPNO, e.ENAME, d.*
+FROM DEPT d LEFT JOIN EMP e ON d.DEPTNO = e.DEPTNO;
+
+-- 48. List the details of the emps whose Salaries more than the employee BLAKE.
+SELECT e.* FROM EMP e
+WHERE e.SAL > (
+  SELECT SAL FROM EMP WHERE ENAME = 'BLAKE'
+);
+  -- This is just to include BLAKE in the resultset if you wanted to compare
+-- UNION
+  -- SELECT * FROM EMP WHERE ENAME = 'BLAKE';
+
+-- 49. List the emps whose Jobs are same as ALLEN.
+SELECT * FROM EMP
+WHERE JOB = (
+  SELECT JOB FROM EMP WHERE ENAME = 'ALLEN'
+);
+
+-- 50. List the emps who are senior to King.
+SELECT * FROM EMP WHERE HIREDATE < (
+  SELECT HIREDATE FROM EMP WHERE ENAME = 'KING'
+);
+-- UNION
+  -- SELECT * FROM EMP WHERE ENAME = 'KING';
