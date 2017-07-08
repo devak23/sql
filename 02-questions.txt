@@ -47,3 +47,9 @@
 47. List the details of the Depts along with Empno, Ename or without the emps
 48. List the details of the emps whose Salaries more than the employee BLAKE.
 49. List the emps whose Jobs are same as ALLEN.
+50. List the emps who are senior to King.
+51. List the Emps who are senior to their own MGRS.
+52. List the Emps of Deptno 20 whose Jobs are same as Deptno 10.
+53. List the Emps whose Sal is same as FORD or SMITH in desc order of Sal.
+54. List the emps Whose Jobs are same as MILLER or Sal is more than ALLEN.
+55. List the Emps whose Sal is > the total remuneration of the SALESMAN.

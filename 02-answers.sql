@@ -237,3 +237,61 @@ SELECT * FROM EMP WHERE HIREDATE < (
 );
 -- UNION
   -- SELECT * FROM EMP WHERE ENAME = 'KING';
+
+-- 51. List the Emps who are senior to their own MGRS.
+-- using a corelated subquery, we have the follows:
+SELECT e1.EMPNO, e1.ENAME, e1.HIREDATE
+FROM EMP e1 WHERE e1.HIREDATE < (
+  SELECT HIREDATE FROM EMP e2 WHERE e2.EMPNO = e1.MGR
+)
+ORDER BY e1.EMPNO ASC;
+
+ -- using a join, we have the follows:
+SELECT e1.EMPNO, e1.ENAME, e1.HIREDATE, e1.MGR, e2.EMPNO, e2.ENAME, e2.HIREDATE
+FROM EMP e1, EMP e2
+WHERE e1.MGR = e2.EMPNO
+AND e1.HIREDATE < e2.HIREDATE
+ORDER BY e1.EMPNO ASC;
+
+-- 52. List the Emps of Deptno 20 whose Jobs are same as Deptno 10.
+ -- Using a subquery (not a co-related subquery), we have the following:
+SELECT e20.JOB, e20.ENAME, e20.DEPTNO
+FROM EMP e20
+WHERE e20.DEPTNO = 20
+  AND e20.JOB IN (
+  SELECT e10.JOB FROM EMP e10 WHERE e10.DEPTNO = 10
+);
+
+ -- using joins, we have the following:
+SELECT e20.JOB, e20.ENAME, e20.DEPTNO, e10.DEPTNO, e10.ENAME, e10.JOB
+FROM EMP e10, EMP e20
+WHERE e20.DEPTNO = 20
+  AND e10.DEPTNO = 10
+  AND e10.JOB = e20.JOB
+  AND e10.EMPNO <> e20.EMPNO;
+
+
+-- 53. List the Emps whose Sal is same as FORD or SMITH in desc order of Sal.
+SELECT e1.ENAME, e1.SAL
+FROM EMP e1 WHERE e1.SAL IN (
+  SELECT SAL FROM EMP WHERE ENAME IN ('FORD', 'SMITH')
+)
+AND e1.ENAME NOT IN ('FORD', 'SMITH')
+ORDER BY SAL DESC;
+
+-- 54. List the emps Whose Jobs are same as MILLER or Sal is more than ALLEN.
+SELECT ENAME, SAL
+FROM EMP
+WHERE JOB in (
+  SELECT JOB FROM EMP WHERE ENAME = 'MILLER'
+)
+OR SAL > (
+  SELECT SAL FROM EMP WHERE ENAME = 'ALLEN'
+);
+
+-- 55. List the Emps whose Sal is > the total remuneration of the SALESMAN.
+SELECT ENAME, SAL
+FROM EMP WHERE SAL > (
+  SELECT sum(SAL + IFNULL(COMM, 0)) FROM EMP WHERE JOB = 'SALESMAN'
+);
+# I'm not sure if the above query is correct
