@@ -294,4 +294,34 @@ SELECT ENAME, SAL
 FROM EMP WHERE SAL > (
   SELECT sum(SAL + IFNULL(COMM, 0)) FROM EMP WHERE JOB = 'SALESMAN'
 );
-# I'm not sure if the above query is correct
+-- I'm not sure if the above query is correct
+
+-- 56. List the emps who are senior to BLAKE working at CHICAGO & BOSTON.
+SELECT d.LOC, e.ENAME, e.HIREDATE FROM EMP e
+INNER JOIN DEPT d on e.DEPTNO = d.DEPTNO
+WHERE d.LOC IN ('CHICAGO', 'BOSTON')
+AND e.HIREDATE < (
+  SELECT HIREDATE FROM EMP WHERE ENAME = 'BLAKE'
+);
+
+-- 57. List the Emps of Grade 3,4 belongs to the dept ACCOUNTING and RESEARCH whose Sal is more than ALLEN and exp more than ADAMS in the asc order of EXP.
+SELECT s.GRADE, e.ENAME, e.HIREDATE, datediff(NOW(), e.HIREDATE)/(12*30) as EXP_YRS
+FROM SALGRADE s, EMP e
+INNER JOIN DEPT d on d.DEPTNO = e.DEPTNO
+WHERE e.SAL BETWEEN s.LOSAL and s.HISAL
+AND d.DNAME IN ('ACCOUNTING', 'RESEARCH')
+AND s.GRADE IN (3,4)
+AND e.SAL > (
+  SELECT SAL FROM EMP WHERE ENAME = 'ALLEN'
+)
+AND e.HIREDATE < (
+  SELECT HIREDATE FROM EMP WHERE ENAME = 'ADAMS'
+)
+ORDER BY e.HIREDATE ASC;
+
+
+-- 58. List the emps whose jobs same as SMITH or ALLEN.
+SELECT * FROM EMP
+WHERE JOB IN (
+  SELECT JOB FROM EMP WHERE ENAME IN ('SMITH', 'ALLEN')
+)
