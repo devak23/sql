@@ -324,4 +324,65 @@ ORDER BY e.HIREDATE ASC;
 SELECT * FROM EMP
 WHERE JOB IN (
   SELECT JOB FROM EMP WHERE ENAME IN ('SMITH', 'ALLEN')
+);
+
+-- 59. Write a Query to display the details of emps whose Sal is same as of
+--    a)Employee Sal of EMP1 table.
+--    b)¾ Sal of any Mgr of EMP2 table.
+--    c)The sal of any person with exp of 5 years belongs to the sales dept of emp3 table.
+--    d)Any grade 2 employee of emp4 table.
+--    e)Any grade 2 and 3 employee working fro sales dept or operations dept joined in 89.
+
+-- This problem essentially needs subqueries in the WHERE Clause. It's simple... but
+-- none of the rows really match the conditions so can't verify
+
+
+-- 60. SELECT any jobs of deptno 10 those that are not found in deptno 20
+SELECT DISTINCT JOB
+FROM EMP
+WHERE DEPTNO = 10
+AND JOB NOT IN (
+  SELECT DISTINCT JOB FROM EMP WHERE DEPTNO = 20
+);
+
+-- 61. List of emps of emp1 who are not found in emp2.
+-- This question seems ridiculous as there wont be any employees at all
+SELECT * from EMP e1 where e1.EMPNO NOT IN (
+  SELECT EMPNO FROM EMP
+);
+
+-- 62. Find the highest sal of EMP table.
+SELECT MAX(SAL) as HIGHEST_SAL FROM EMP;
+
+-- 63. Find the details of highest paid employee
+SELECT * FROM EMP WHERE SAL IN (
+  SELECT MAX(SAL) FROM EMP
+);
+
+-- 64. Find the highest paid employee of sales department.
+SELECT * FROM EMP WHERE SAL IN (
+  SELECT MAX(SAL) FROM EMP WHERE DEPTNO = (
+    SELECT DEPTNO FROM DEPT WHERE DNAME = 'SALES'
+  )
+);
+
+-- 65. List the most recently hired emp of grade3 belongs to  location CHICAGO.
+SELECT *
+FROM EMP
+WHERE HIREDATE = (
+  SELECT MAX(HIREDATE)
+  FROM EMP e, SALGRADE s, DEPT d
+  WHERE e.DEPTNO = d.DEPTNO
+  AND d.LOC = 'CHICAGO'
+  AND e.SAL BETWEEN s.LOSAL AND s.HISAL
+  AND s.GRADE = 3
+);
+
+-- 66. List the employees who are senior to most recently hired employee working under king.
+SELECT * FROM EMP WHERE HIREDATE < (
+  SELECT MAX(HIREDATE)
+  FROM EMP
+  WHERE MGR = (
+    SELECT EMPNO FROM EMP WHERE ENAME = 'KING'
+  )
 )

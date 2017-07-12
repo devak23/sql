@@ -62,3 +62,10 @@
     c)The sal of any person with exp of 5 years belongs to the sales dept of emp3 table.
     d) Any grade 2 employee of emp4 table.
     e)Any grade 2 and 3 employee working fro sales dept or operations dept joined in 89.
+60. SELECT any jobs of deptno 10 those that are not found in deptno 20
+61. List of emps of emp1 who are not found in emp2.
+62. Find the highest sal of EMP table.
+63. Find the details of highest paid employee
+64. Find the highest paid employee of sales department.
+65. List the most recently hired emp of grade3 belongs to  location CHICAGO.
+66. List the employees who are senior to most recently hired employee working under king.
