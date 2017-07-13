@@ -69,3 +69,10 @@
 64. Find the highest paid employee of sales department.
 65. List the most recently hired emp of grade3 belongs to  location CHICAGO.
 66. List the employees who are senior to most recently hired employee working under king.
+67. List the details of the employee belongs to newyork with grade 3 to 5 except ‘PRESIDENT’ whose sal> the highest paid employee of Chicago in a group where there is manager and salesman not working under king
+68. List the details of the senior employee belongs to 1981.
+69. List the employees who joined in 1981 with the job same as the most senior person of the year 1981.
+70. List the most senior empl working under the king and grade is more  than 3.
+71. Find the total sal given to the MGR.
+72. Find the total annual sal to distribute job wise in the year 81.
+73. Display total sal of the employees belonging to grade 3.

@@ -385,4 +385,98 @@ SELECT * FROM EMP WHERE HIREDATE < (
   WHERE MGR = (
     SELECT EMPNO FROM EMP WHERE ENAME = 'KING'
   )
+);
+
+-- 67. List the details of the employee belongs to newyork with grade 3 to 5 except ‘PRESIDENT’ whose sal> the highest paid employee of Chicago in a group where there is manager and salesman not working under king
+-- This doesn't seem to be the right answer
+# SELECT * FROM EMP e
+#   WHERE e.DEPTNO IN (
+#     SELECT DEPTNO FROM DEPT WHERE LOC = 'NEW YORK'
+#   )
+#   AND e.EMPNO IN (
+#     SELECT EMPNO
+#     FROM EMP, SALGRADE
+#     WHERE SAL BETWEEN SALGRADE.LOSAL AND SALGRADE.HISAL
+#     AND SALGRADE.GRADE IN (3,4,5)
+#     AND JOB <> 'PRESIDENT'
+#   )
+#   AND e.SAL > (
+#     SELECT MAX(SAL) FROM EMP WHERE DEPTNO IN (
+#       SELECT DEPTNO FROM DEPT WHERE LOC = 'CHICAGO'
+#     )
+#   );
+
+
+
+-- 68. List the details of the senior employee belongs to 1981.
+SELECT *
+FROM EMP WHERE HIREDATE IN (
+  SELECT MIN(HIREDATE) FROM EMP WHERE YEAR(HIREDATE) = 1981
+);
+
+
+-- 69. List the employees who joined in 1981 with the job same as the most senior person of the year 1981.
+SELECT *
+FROM EMP
+WHERE JOB IN (
+  SELECT JOB FROM EMP WHERE HIREDATE = (
+    SELECT MIN(HIREDATE) FROM EMP WHERE YEAR(HIREDATE) = 1981
+  )
 )
+AND YEAR(HIREDATE) = 1981;
+
+
+-- 70. List the most senior empl working under the king and grade is more  than 3.
+-- I dont know if this is better or the next one. Somebody needs to explain me the query plan
+SELECT * FROM EMP e, SALGRADE s
+WHERE e.SAL BETWEEN s.LOSAL AND s.HISAL
+AND s.GRADE > 3
+AND e.HIREDATE IN (
+  SELECT MIN(HIREDATE)
+  FROM EMP WHERE MGR = (
+    SELECT EMPNO FROM EMP WHERE ENAME = 'KING'
+  )
+)
+AND e.MGR = (
+  SELECT EMPNO FROM EMP WHERE ENAME = 'KING'
+);
+
+
+-- Using co-related subquery
+SELECT * FROM EMP e, SALGRADE s
+WHERE e.SAL BETWEEN s.LOSAL AND s.HISAL
+AND s.GRADE > 3
+AND e.MGR = (
+  SELECT EMPNO FROM EMP WHERE ENAME = 'KING'
+)
+AND e.HIREDATE IN (
+  SELECT MIN(HIREDATE)
+  FROM EMP WHERE MGR = e.MGR
+);
+
+-- 71. Find the total sal given to the MGR.
+SELECT SUM(SAL) FROM EMP WHERE JOB = 'MANAGER';
+
+
+-- 72. Find the total annual sal to distribute job wise in the year 81.
+SELECT SUM(SAL * 12) AS ANNUAL_SALARY, JOB
+FROM EMP
+WHERE YEAR(HIREDATE) = 1981
+GROUP BY JOB;
+
+-- 73. Display total sal of the employees belonging to grade 3.
+SELECT SUM(e.SAL), s.GRADE
+FROM EMP e, SALGRADE s
+WHERE e.SAL BETWEEN s.LOSAL AND s.HISAL
+AND s.GRADE = 3
+GROUP BY s.GRADE;
+
+-- ALTERNATE ANSWER
+SELECT sum(SAL)
+FROM EMP
+WHERE EMPNO IN (
+  SELECT EMPNO
+  FROM EMP e, SALGRADE s
+  WHERE e.SAL BETWEEN s.LOSAL AND s.HISAL
+        AND s.GRADE = 3
+);
