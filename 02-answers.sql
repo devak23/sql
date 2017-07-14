@@ -480,3 +480,39 @@ WHERE EMPNO IN (
   WHERE e.SAL BETWEEN s.LOSAL AND s.HISAL
         AND s.GRADE = 3
 );
+
+-- 74. Display the average salaries of all the clerks.
+SELECT AVG(SAL) FROM EMP WHERE JOB = 'CLERK';
+
+-- 75. List the employees in dept 20 whose sal is > than the average sal 0f dept 10 emps.
+SELECT * FROM EMP
+WHERE DEPTNO = 20
+AND SAL > (
+  SELECT AVG(SAL) FROM EMP WHERE DEPTNO = 10
+);
+
+-- 76. Display the number of employee  for each job group deptno wise.
+SELECT COUNT(EMPNO) as NO_OF_EMP, JOB, DEPTNO
+FROM EMP
+GROUP BY JOB, DEPTNO;
+
+-- 77. List the manager no and the number of employees working for those mgrs in the ascending Mgrno.
+-- First we need to figure out who works for whom. So we need 2 EMP tables where MGR of one
+-- table matches the EMPNO of the other table. That gives us the relationship.
+SELECT
+E1.ENAME as EMPLOYEE, E2.ENAME as MANAGER, E2.EMPNO
+FROM EMP E1, EMP E2
+WHERE E1.MGR = E2.EMPNO;
+-- now it's a question of getting count of E1.ENAME group by E2.ENAME. Thus the following
+-- query hopefully gives the answer to the question
+SELECT count(employee.EMPNO) as COUNT, manager.EMPNO as MGR
+FROM EMP employee, EMP manager
+WHERE employee.MGR = manager.EMPNO
+GROUP BY manager.EMPNO
+ORDER BY manager.EMPNO;
+
+-- 78. List the department,details where at least two emps are working
+SELECT DEPTNO, COUNT(DEPTNO), EMP.*
+FROM EMP
+GROUP BY DEPTNO
+HAVING COUNT(DEPTNO) > 2;

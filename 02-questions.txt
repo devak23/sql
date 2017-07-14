@@ -76,3 +76,8 @@
 71. Find the total sal given to the MGR.
 72. Find the total annual sal to distribute job wise in the year 81.
 73. Display total sal of the employees belonging to grade 3.
+74. Display the average salaries of all the clerks.
+75. List the employeein dept 20 whose sal is >the average sal 0f dept 10 emps.
+76. Display the number of employee  for each job group deptno wise.
+77. List the manager no and the number of employees working for those mgrs in the ascending Mgrno.
+78. List the department,details where at least two emps are working
