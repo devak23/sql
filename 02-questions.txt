@@ -81,3 +81,8 @@
 76. Display the number of employee  for each job group deptno wise.
 77. List the manager no and the number of employees working for those mgrs in the ascending Mgrno.
 78. List the department,details where at least two emps are working
+79. Display the Grade, Number of emps, and max sal of each grade.
+80. Display dname, grade, No. of emps where at least two emps are clerks.
+81. List the details of the department where maximum number of emps are working.
+82. Display the emps whose manager name is jones.
+83. List the employees whose salary is more than 3000 after giving 20% increment.

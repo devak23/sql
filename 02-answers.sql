@@ -516,3 +516,43 @@ SELECT DEPTNO, COUNT(DEPTNO), EMP.*
 FROM EMP
 GROUP BY DEPTNO
 HAVING COUNT(DEPTNO) > 2;
+
+-- 79. Display the Grade, Number of emps, and max sal of each grade.
+SELECT s.GRADE, count(EMPNO) AS COUNT, max(SAL) as MAX_SAL
+FROM EMP e, SALGRADE s
+WHERE e.SAL BETWEEN s.LOSAL AND s.HISAL
+GROUP BY s.GRADE;
+
+-- 80. Display dname, grade, No. of emps where at least two emps are clerks.
+SELECT d.DNAME, s.GRADE, COUNT(e.EMPNO)
+FROM EMP e, SALGRADE s, DEPT d
+WHERE e.SAL BETWEEN s.LOSAL AND s.HISAL
+AND e.DEPTNO = d.DEPTNO
+AND e.JOB = 'CLERK'
+GROUP BY d.DNAME, s.GRADE
+HAVING count(e.EMPNO) >= 2;
+
+-- 81. List the details of the department where maximum number of emps are working.
+SELECT * FROM DEPT                -- Get the details of the dept depends on deptno
+WHERE deptno IN (
+  SELECT deptno
+  FROM EMP GROUP BY deptno
+  HAVING count(EMPNO) = (                 -- Get the deptno where count matches the max
+    SELECT max(A.emp_count)                   -- Get the max among them
+    FROM (                                       -- Get the count of emp per dept
+      SELECT count(EMPNO) AS emp_count
+      FROM EMP
+      GROUP BY deptno
+    ) A
+  )
+);
+
+-- 82. Display the emps whose manager name is jones.
+SELECT * FROM EMP
+WHERE MGR IN (
+    SELECT EMPNO FROM EMP WHERE ENAME = 'JONES'
+);
+
+-- 83. List the employees whose salary is more than 3000 after giving 20% increment.
+SELECT * FROM EMP
+WHERE SAL * 1.2 > 3000
