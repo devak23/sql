@@ -611,3 +611,22 @@ WHERE e.EMPNO IN (
 );
 
 -- 90. List the emps whose mgr name is jones and also list their manager name.
+SELECT e.ENAME as "EMPLOYEE", m.ENAME as "MANAGER"
+FROM EMP e
+  INNER JOIN EMP m on e.MGR = m.EMPNO
+WHERE m.ENAME = 'JONES';
+
+-- 91. List the name and salary of FORD if his salary is equal to hisal of his grade.
+SELECT e.ENAME, e.SAL, s.HISAL
+FROM EMP e, SALGRADE s
+WHERE e.SAL BETWEEN s.LOSAL and s.HISAL
+AND e.SAL = s.HISAL
+-- AND e.ENAME = 'FORD ' -- I think this condition is not required, as there is another employee
+-- who matches the condition
+
+-- 92. List the name, job, dname ,sal, grade order dept wise
+SELECT e.ENAME, e.JOB, d.DNAME, e.SAL, s.GRADE
+FROM EMP e, SALGRADE s, DEPT d
+WHERE e.DEPTNO = d.DEPTNO
+AND e.SAL BETWEEN s.LOSAL AND s.HISAL
+ORDER BY e.DEPTNO DESC;

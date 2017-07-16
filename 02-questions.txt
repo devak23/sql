@@ -93,3 +93,5 @@
 88. List the grade, EMP name for the deptno 10 or deptno 30 but sal grade is not 4 while they joined the company before ’31-dec-82’.
 89. List the name ,job, dname, location for those who are working as MGRS.
 90. List the emps whose mgr name is jones and also list their manager name.
+91. List the name and salary of ford if his salary is equal to hisal of his grade.
+92. List the name, job, dname ,sal, grade dept wise
