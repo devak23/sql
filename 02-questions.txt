@@ -86,3 +86,10 @@
 81. List the details of the department where maximum number of emps are working.
 82. Display the emps whose manager name is jones.
 83. List the employees whose salary is more than 3000 after giving 20% increment.
+84. List the emps with dept names.
+85. List the emps who are not working in sales dept.
+86. List the emps name ,dept, sal and comm. for those whose salary is between 2000 and 5000 while loc is Chicago.
+87. List the emps whose sal is greater than his managers salary
+88. List the grade, EMP name for the deptno 10 or deptno 30 but sal grade is not 4 while they joined the company before ’31-dec-82’.
+89. List the name ,job, dname, location for those who are working as MGRS.
+90. List the emps whose mgr name is jones and also list their manager name.

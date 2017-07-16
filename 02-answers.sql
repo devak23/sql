@@ -555,4 +555,59 @@ WHERE MGR IN (
 
 -- 83. List the employees whose salary is more than 3000 after giving 20% increment.
 SELECT * FROM EMP
-WHERE SAL * 1.2 > 3000
+WHERE SAL * 1.2 > 3000;
+
+
+-- 84. List the emps with dept names.
+SELECT e.ENAME, d.DNAME
+FROM EMP e INNER JOIN DEPT d ON e.DEPTNO = d.DEPTNO;
+
+-- 85. List the emps who are not working in sales dept.
+SELECT e.ENAME, d.DNAME
+FROM EMP e INNER JOIN DEPT d ON d.DEPTNO = e.DEPTNO
+WHERE d.DNAME <> 'SALES';
+-- OR
+SELECT ENAME FROM EMP WHERE DEPTNO NOT IN (
+  SELECT DEPTNO FROM DEPT WHERE DNAME = 'SALES'
+);
+
+-- 86. List the emps name ,dept, sal and comm. For those whose salary is between 2000 and 5000 while loc is Chicago.
+SELECT e.ENAME, d.DNAME, e.SAL, e.COMM
+FROM EMP e INNER JOIN DEPT d ON e.DEPTNO = d.DEPTNO
+WHERE e.SAL BETWEEN 2000 AND 5000
+AND d.LOC = 'CHICAGO';
+-- OR
+SELECT ENAME, SAL, COMM
+FROM EMP WHERE DEPTNO IN (
+  SELECT DEPTNO FROM DEPT WHERE LOC = 'CHICAGO'
+)
+AND SAL BETWEEN 2000 AND 5000;
+
+
+-- 87. List the emps whose sal is greater than his managers salary
+SELECT
+  e.ENAME AS employee,
+  e.SAL   AS emp_sal,
+  m.ENAME AS manager,
+  m.SAL   AS manager_sal
+FROM EMP e
+  INNER JOIN EMP m ON e.MGR = m.EMPNO
+WHERE e.SAL >= m.SAL;
+
+-- 88. List the grade, EMP name for the deptno 10 or deptno 30 but sal grade is not 4 while they joined the company before ’31-dec-82’.
+SELECT s.GRADE, e.ENAME, e.DEPTNO, e.HIREDATE
+FROM EMP e, SALGRADE s
+WHERE e.DEPTNO IN (10, 30)
+AND e.SAL BETWEEN s.LOSAL and s.HISAL
+AND s.GRADE <> 4
+and e.HIREDATE < '1982-12-31';
+
+-- 89. List the name ,job, dname, location for those who are working as MGRS.
+SELECT e.ENAME, e.JOB, d.DNAME, d.LOC
+FROM EMP e
+  INNER JOIN DEPT d ON e.DEPTNO = d.DEPTNO
+WHERE e.EMPNO IN (
+  SELECT DISTINCT MGR FROM EMP
+);
+
+-- 90. List the emps whose mgr name is jones and also list their manager name.
