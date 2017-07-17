@@ -630,3 +630,97 @@ FROM EMP e, SALGRADE s, DEPT d
 WHERE e.DEPTNO = d.DEPTNO
 AND e.SAL BETWEEN s.LOSAL AND s.HISAL
 ORDER BY e.DEPTNO DESC;
+
+-- 93. List the emp name, job, sal, grade and dname except clerks and sort on the basis of highest sal.
+SELECT e.ENAME, e.JOB, e.SAL, s.GRADE, d.DNAME
+FROM SALGRADE s, EMP e INNER JOIN DEPT d ON e.DEPTNO = d.DEPTNO
+WHERE e.SAL BETWEEN s.LOSAL AND s.HISAL
+ORDER BY e.SAL DESC;
+
+-- 94. List the emps name, job  who are with out manager.
+SELECT ENAME FROM EMP where MGR is null
+
+-- 94.2 List the manager who does not have any employees below him
+SELECT m.ENAME, m.EMPNO
+FROM EMP m LEFT JOIN EMP e on m.EMPNO = e.MGR
+WHERE e.EMPNO is null;
+
+
+-- 95. List the names of the emps who are getting the highest sal dept wise.
+SELECT e.ENAME, d.DNAME, e.SAL
+FROM EMP e
+  INNER JOIN DEPT d on e.DEPTNO = d.DEPTNO
+WHERE e.SAL IN (
+  SELECT MAX(SAL)
+  FROM EMP
+  GROUP BY DEPTNO
+);
+
+-- 96. List the emps whose sal is equal to the average of max and minimum SAL
+SELECT * FROM EMP WHERE SAL IN (
+  SELECT (MAX(SAL) + MIN(SAL))/2 FROM EMP
+);
+
+
+-- 96.2 List the emps whose sal is equal to the average SAL or minimum SAL
+SELECT * FROM EMP
+WHERE SAL IN (
+  SELECT AVG(SAL) FROM EMP
+)
+OR SAL IN (
+  SELECT MIN(SAL) FROM EMP
+);
+
+-- 97. List the no. of emps in each department where the no. is more than 3
+SELECT DEPTNO, count(EMPNO) as NUM_OF_EMP
+FROM EMP
+GROUP BY DEPTNO
+HAVING count(EMPNO) > 3;
+
+-- 98. List the names of depts. Where at least 3 emps are working in that department.
+SELECT d.DNAME
+FROM DEPT d WHERE d.DEPTNO IN (
+  SELECT DEPTNO
+  FROM EMP
+  GROUP BY DEPTNO
+  HAVING COUNT(EMPNO) >= 3
+);
+
+-- OR
+SELECT d.DNAME, count(d.DNAME)
+FROM DEPT d
+  INNER JOIN EMP e on e.DEPTNO = d.DEPTNO
+GROUP BY d.DEPTNO
+HAVING COUNT(e.EMPNO) >= 3;
+
+
+-- 99. List the managers whose sal is more than his employees avg salary.
+SELECT *
+FROM EMP
+WHERE EMPNO IN (
+  SELECT DISTINCT MGR
+  FROM EMP
+)
+AND SAL > (
+  SELECT AVG(e.SAL)
+  FROM EMP e, EMP m
+    WHERE e.MGR = m.EMPNO
+);
+
+-- OR
+-- Why is this query not giving the correct result??
+SELECT *
+FROM EMP e INNER JOIN EMP m ON m.EMPNO = e.EMPNO -- this gets all managers
+WHERE m.SAL > (
+  SELECT AVG(SAL) FROM EMP WHERE MGR = m.MGR
+);
+
+
+-- OR
+SELECT (avg(e.sal)), m.ename
+FROM EMP e, EMP m
+WHERE e.mgr = m.empno
+GROUP BY e.mgr, m.ename;
+
+-- 100. List the name,salary,comm. for those employees whose net pay is greater than or equal to any other employee salary of the company.
+-- Dont know how to solve this in MySQL

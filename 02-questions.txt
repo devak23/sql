@@ -95,3 +95,13 @@
 90. List the emps whose mgr name is jones and also list their manager name.
 91. List the name and salary of ford if his salary is equal to hisal of his grade.
 92. List the name, job, dname ,sal, grade dept wise
+93. List the emp name, job, sal, grade and dname except clerks and sort on the basis of highest sal.
+94. List the emps name, job  who are with out manager.
+94.2 List the manager who does not have any employees below him
+95. List the names of the emps who are getting the highest sal dept wise.
+96. List the emps whose sal is equal to the average of max and minimum SAL
+96.2 List the emps whose sal is equal to the average SAL or minimum SAL
+97. List the no. of emps in each department where the no. is more than 3
+98. List the names of depts. Where at least 3 emps are working in that department.
+99. List the managers whose sal is more than his employees avg salary.
+100. List the name,salary,comm. For those employees whose net pay is greater than or equal to any other employee salary of the company.
