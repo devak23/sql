@@ -105,3 +105,9 @@
 98. List the names of depts. Where at least 3 emps are working in that department.
 99. List the managers whose sal is more than his employees avg salary.
 100. List the name,salary,comm. For those employees whose net pay is greater than or equal to any other employee salary of the company.
+100. List the name,salary,comm. for those employees whose net pay is greater than or equal to any other employee salary of the company.
+101. List the emp whose sal<his manager but more than any other manager.
+102. List the employee names and his average salary department wise.
+103. Find out least 5 earners of the company.
+104. Find out emps whose salaries are greater than salaries of their managers.
+105. List the managers who are not working under the president.
