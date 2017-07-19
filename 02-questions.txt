@@ -111,3 +111,11 @@
 103. Find out least 5 earners of the company.
 104. Find out emps whose salaries are greater than salaries of their managers.
 105. List the managers who are not working under the president.
+106. List the records from emp whose deptno is not in DEPT table.
+107. List the Name , Salary, Comm and Net Pay of an employee which is more than any other employee.
+108. List the Enames who are retiring after 31-Dec-89 (the max Job period is 20Y).
+109. List those Emps whose Salary is odd value.
+110. List the emp’s whose Salary contain 3 digits.
+111. List the emps who joined in the month of DEC.
+112. List the emps whose names contains ‘A’.
+113. List the emps whose Deptno is available in his Salary.

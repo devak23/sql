@@ -638,7 +638,7 @@ WHERE e.SAL BETWEEN s.LOSAL AND s.HISAL
 ORDER BY e.SAL DESC;
 
 -- 94. List the EMPs name, job  who are with out manager.
-SELECT ENAME FROM EMP where MGR is null
+SELECT ENAME FROM EMP where MGR is null;
 
 -- 94.2 List the manager who does not have any EMPloyees below him
 SELECT m.ENAME, m.EMPNO
@@ -787,4 +787,50 @@ AND MGR NOT IN (
   SELECT EMPNO
   FROM EMP
   WHERE JOB = 'PRESIDENT'
-)
+);
+
+-- 106. List the records from emp whose deptno is not in DEPT table.
+-- had to run this insert statement for the data to appear:
+-- INSERT INTO EMP VALUES ('7728', 'STEVE', 'SALESMAN', '7839', '1981-05-01', '2770.00', NULL, '60');
+SELECT * FROM EMP WHERE DEPTNO NOT IN (
+  SELECT DEPTNO FROM DEPT
+);
+
+-- There is a dept which is not present in the EMP table but not vice-versa. HEnce the insert needed
+SELECT * FROM DEPT
+WHERE DEPTNO NOT IN (
+  SELECT DISTINCT DEPTNO FROM EMP
+);
+
+
+-- 107. List the Name , Salary, Comm and Net Pay of an employee which is more than any other employee.
+-- Quite frankly i dont understand the intent/question. So this answer could be wrong or the question could be meaningless
+SELECT e.ENAME, e.SAL, e.COMM, e.SAL + e.COMM as NET_PAY
+FROM EMP e WHERE SAL > ANY (
+  SELECT SAL FROM EMP
+);
+
+-- 108. List the Enames who are retiring after 31-Dec-89 (the max Job period is 20Y).
+-- Need to verify the answer.
+SELECT ENAME, HIREDATE, DATEDIFF('1989-12-31',HIREDATE)/(12 * 30) EXP_AT_1981
+FROM EMP
+WHERE DATEDIFF('1989-12-31',HIREDATE)/(12 * 30) > 20;
+
+-- select ename from EMP where DATE_ADD(hiredate, INTERVAL 240 MONTH) > '1989-12-31';
+
+-- 109. List those Emps whose Salary is odd value.
+SELECT * FROM EMP WHERE SAL % 2 = 1;
+
+-- 110. List the emp’s whose Salary contain 3 digits.
+SELECT * FROM EMP WHERE SAL >= 100 AND SAL < 1000;
+
+-- 111. List the emps who joined in the month of DEC.
+SELECT * FROM EMP WHERE MONTH(HIREDATE) = 12;
+
+-- 112. List the emps whose names contains ‘A’.
+SELECT * FROM EMP WHERE ENAME LIKE '%A%';
+
+-- 113. List the emps whose Deptno is available in his Salary.
+SELECT CONVERT(SAL, CHAR),CONCAT('%',DEPTNO,'%')
+FROM EMP
+WHERE CONVERT(SAL, CHAR) LIKE CONCAT('%',DEPTNO,'%')
