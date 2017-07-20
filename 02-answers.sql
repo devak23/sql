@@ -833,4 +833,48 @@ SELECT * FROM EMP WHERE ENAME LIKE '%A%';
 -- 113. List the emps whose Deptno is available in his Salary.
 SELECT CONVERT(SAL, CHAR),CONCAT('%',DEPTNO,'%')
 FROM EMP
-WHERE CONVERT(SAL, CHAR) LIKE CONCAT('%',DEPTNO,'%')
+WHERE CONVERT(SAL, CHAR) LIKE CONCAT('%',DEPTNO,'%');
+
+-- 114. List the emps whose first 2 chars from Hiredate = last 2 characters of Salary.
+SELECT ENAME, HIREDATE, SAL
+--  , SUBSTR(HIREDATE, 1, 2)
+--  , SUBSTR(CONVERT(SAL,INT), LENGTH(SAL)-4 , LENGTH(SAL) - 2)
+FROM EMP
+WHERE SUBSTR(HIREDATE, 1, 2) = SUBSTR(CONVERT(SAL,INT), LENGTH(SAL)-4 , LENGTH(SAL) - 2);
+
+-- 115. List the emps Whose 10% of Salary is equal to year of joining.
+SELECT ENAME, SAL, CONVERT(SAL * 0.1,INT), YEAR(HIREDATE)
+FROM EMP
+WHERE CONVERT(SAL*0.1,INT) = YEAR(HIREDATE)
+OR CONVERT(SAL * 0.1, INT) = SUBSTR(YEAR(HIREDATE),3,4);
+
+-- 116. List first 50% of chars of Ename in Lower Case and remaining are upper Case.
+SELECT CONCAT(LOWER(SUBSTR(ENAME, 1, LENGTH(ENAME)/2)), UPPER(SUBSTR(ENAME, LENGTH(ENAME)/2+1, LENGTH(ENAME)))) as EMP_NAME
+FROM EMP;
+
+-- 117. List the Dname whose No. of Emps is = to number of chars in the Dname.
+SELECT DNAME, LENGTH(DNAME)
+FROM DEPT
+WHERE LENGTH(DNAME) IN (
+  SELECT COUNT(ENAME)
+  FROM EMP
+  GROUP BY EMP.DEPTNO
+);
+
+-- 118. List the emps those who joined in company before 15th of the month.
+SELECT ENAME, HIREDATE, DAY(HIREDATE)
+FROM EMP
+WHERE DAY(HIREDATE) < 15;
+
+-- 119. List the Dname, no of chars of the DEPT which is = no. of emp’s in any other Dept.
+SELECT d.DNAME, LENGTH(d.DNAME), e.ENAME, e.DEPTNO, d.LOC
+FROM DEPT d INNER JOIN EMP e ON d.DEPTNO = e.DEPTNO
+WHERE LENGTH(d.DNAME) IN (
+  SELECT LENGTH(ENAME) FROM EMP
+);
+
+-- 120. List the emps who are working as Managers.
+SELECT ENAME, JOB
+FROM EMP WHERE EMPNO IN (
+  SELECT DISTINCT MGR FROM EMP
+);

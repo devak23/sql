@@ -119,3 +119,10 @@
 111. List the emps who joined in the month of DEC.
 112. List the emps whose names contains ‘A’.
 113. List the emps whose Deptno is available in his Salary.
+114. List the emps whose first 2 chars from Hiredate = last 2 characters of Salary.
+115. List the emps Whose 10% of Salary is equal to year of joining.
+116. List first 50% of chars of Ename in Lower Case and remaining are upper Case.
+117. List the Dname whose No. of Emps is = to number of chars in the Dname.
+118. List the emps those who joined in company before 15th of the month.
+119. List the Dname, no of chars of the DEPT which is = no. of emp’s in any other Dept.
+120. List the emps who are working as Managers.
