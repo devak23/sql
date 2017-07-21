@@ -878,3 +878,50 @@ SELECT ENAME, JOB
 FROM EMP WHERE EMPNO IN (
   SELECT DISTINCT MGR FROM EMP
 );
+
+-- 121. List THE Name of dept where highest no.of emps are working.
+SELECT * FROM DEPT
+WHERE DEPTNO = (
+  SELECT DEPTNO
+  FROM EMP
+  GROUP BY DEPTNO
+  HAVING COUNT(EMPNO) = (
+    SELECT MAX(EMPLOYEES) FROM (
+      SELECT COUNT(EMPNO) as EMPLOYEES
+      FROM EMP
+      GROUP BY DEPTNO
+    ) A
+  )
+);
+
+-- 122.Count the No.of emps who are working as ‘Managers’
+SELECT COUNT(DISTINCT MGR) FROM EMP;
+
+-- 123. List the emps who joined in the company on the same date.
+SELECT * FROM EMP e1
+WHERE e1.HIREDATE IN (
+  SELECT HIREDATE FROM EMP e2
+  WHERE e1.EMPNO <> e2.EMPNO
+);
+
+-- 124. List the details of the emps whose Grade is equal to one tenth of Sales Dept.
+SELECT * FROM EMP e, SALGRADE s
+WHERE e.SAL BETWEEN s.LOSAL and s.HISAL
+AND s.GRADE = 0.1 * (
+  SELECT DEPTNO FROM DEPT WHERE DNAME = 'SALES'
+);
+
+-- 125. List the name of the dept where more than average no. of emps are working.
+SELECT * FROM DEPT WHERE DEPTNO IN (
+  SELECT DEPTNO -- , COUNT(EMPNO)
+  FROM EMP
+  GROUP BY DEPTNO
+  HAVING COUNT(EMPNO) > (
+    SELECT AVG(EMPLOYEE_COUNT) AS AVG_EMP_COUNT
+    FROM (
+      SELECT COUNT(EMPNO) AS EMPLOYEE_COUNT
+      FROM EMP
+      GROUP BY DEPTNO
+    ) A
+  )
+)
