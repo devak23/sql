@@ -126,3 +126,8 @@
 118. List the emps those who joined in company before 15th of the month.
 119. List the Dname, no of chars of the DEPT which is = no. of emp’s in any other Dept.
 120. List the emps who are working as Managers.
+121. List THE Name of dept where highest no.of emps are working.
+122.Count the No.of emps who are working as ‘Managers’
+123. List the emps who joined in the company on the same date.
+124. List the details of the emps whose Grade is equal to one tenth of Sales Dept.
+125. List the name of the dept where more than average no. of emps are working.
