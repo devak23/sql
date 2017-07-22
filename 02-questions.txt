@@ -131,3 +131,11 @@
 123. List the emps who joined in the company on the same date.
 124. List the details of the emps whose Grade is equal to one tenth of Sales Dept.
 125. List the name of the dept where more than average no. of emps are working.
+126. List the Managers name who is having max no.of emps working under him.
+127. List the Ename and Sal is increased by 15% and expressed as no.of Dollars.
+128. Produce the output of EMP table ‘EMP_AND_JOB’ for Ename and Job.
+129. Produce the following output from EMP.
+        EMPLOYEE
+		SMITH (clerk)
+		ALLEN (Salesman)
+130. List the emps with Hire date in format June 4, 1988.

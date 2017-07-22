@@ -812,11 +812,11 @@ FROM EMP e WHERE SAL > ANY (
 
 -- 108. List the Enames who are retiring after 31-Dec-89 (the max Job period is 20Y).
 -- Need to verify the answer.
-SELECT ENAME, HIREDATE, DATEDIFF('1989-12-31',HIREDATE)/(12 * 30) EXP_AT_1981
+SELECT ENAME, HIREDATE, DATEDIFF('1989-12-31',HIREDATE)/(12 * 30) EXP_AT_1989
 FROM EMP
-WHERE DATEDIFF('1989-12-31',HIREDATE)/(12 * 30) > 20;
+-- WHERE DATEDIFF('1989-12-31',HIREDATE)/(12 * 30) > 20;
+WHERE date_add(HIREDATE, INTERVAL 20 YEAR) > '1989';
 
--- select ename from EMP where DATE_ADD(hiredate, INTERVAL 240 MONTH) > '1989-12-31';
 
 -- 109. List those Emps whose Salary is odd value.
 SELECT * FROM EMP WHERE SAL % 2 = 1;
@@ -924,4 +924,35 @@ SELECT * FROM DEPT WHERE DEPTNO IN (
       GROUP BY DEPTNO
     ) A
   )
-)
+);
+
+-- 126. List the Managers name who is having max no.of emps working under him.
+SELECT * FROM EMP WHERE EMPNO = (
+  SELECT MGR
+  FROM EMP
+  GROUP BY MGR
+  HAVING COUNT(EMPNO) = (
+    SELECT MAX(EMP_COUNT)
+    FROM (
+      SELECT COUNT(EMPNO)AS EMP_COUNT
+      FROM EMP
+      GROUP BY MGR
+    ) A
+  )
+);
+
+-- 127. List the Ename and Sal is increased by 15% and expressed as no.of Dollars.
+SELECT ENAME, SAL, CONCAT('$',SAL * 1.15) AS RAISE_BY_15PCT FROM EMP;
+
+
+-- 128. Produce the output of EMP table ‘EMP_AND_JOB’ for Ename and Job.
+SELECT CONCAT(ENAME, ' ', JOB) AS EMP_AND_JOB FROM EMP;
+
+-- 129.Produce the following output from EMP.
+--        EMPLOYEE
+--			SMITH (clerk)
+--			ALLEN (Salesman)
+SELECT CONCAT(ENAME, ' (', LOWER(JOB) , ')') AS EMPLOYEE FROM EMP;
+
+-- 130. List the emps with Hire date in format June 4, 1988.
+SELECT ENAME, DATE_FORMAT(HIREDATE, '%M %d, %Y') FROM EMP;
