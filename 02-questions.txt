@@ -139,3 +139,13 @@
 		SMITH (clerk)
 		ALLEN (Salesman)
 130. List the emps with Hire date in format June 4, 1988.
+131. Print a list of emp’s Listing ‘just salary’ if Salary is more than 1500, on target if
+132. Write a query which return the day of the week for any date entered in format ‘DD-MM-YY’.
+133. Write a query to calculate the length of service of any employee with the company, use DEFINE to avoid repetitive typing of functions.
+134. Give a string of format ‘NN/NN’, verify that the first and last two characters are numbers and that the middle character is’/’. Print the expression ‘YES’ if valid, ‘NO’ if not valid. Use the following values to test your solution. ‘12/34’,’01/1a’, ‘99/98’.
+135. Emps hired on or before 15th of any month are paid on the last Friday of that month those hired after 15th are paid on the first Friday of the following month. Print a list of emps their hire date and the first pay date. Sort on hire date.
+136. Count the no. of characters with out considering spaces for each name.
+137. Find out the emps who are getting decimal value in their Sal without using like operator.
+138. List those emps whose Salary contains first four digit of their Deptno.
+139. List those Managers who are getting less than his emps Salary.
+140. Print the details of all the emps who are sub-ordinates to Blake.

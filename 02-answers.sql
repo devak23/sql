@@ -956,3 +956,73 @@ SELECT CONCAT(ENAME, ' (', LOWER(JOB) , ')') AS EMPLOYEE FROM EMP;
 
 -- 130. List the emps with Hire date in format June 4, 1988.
 SELECT ENAME, DATE_FORMAT(HIREDATE, '%M %d, %Y') FROM EMP;
+
+-- 131. Print a list of emp’s Listing ‘just salary’ if Salary is more than 1500, on target if
+-- Salary is 1500 and ‘Below 1500’ if Salary is less than 1500.
+SELECT EMPNO, 'JUST SALARY' FROM EMP WHERE SAL > 1500
+UNION
+SELECT EMPNO, 'ON TARGET' FROM EMP WHERE SAL = 1500
+UNION
+SELECT EMPNO, 'BELOW 1500' FROM EMP WHERE SAL < 1500;
+
+-- OR by using a case statement
+SELECT EMPNO, (
+  CASE
+    WHEN (SAL < 1500) THEN 'BELOW 1500'
+    WHEN (SAL = 1500) THEN 'ON TARGET'
+    WHEN (SAL > 1500) THEN 'JUST SALARY'
+  END
+)
+FROM EMP
+ORDER BY SAL DESC;
+
+-- 132. Write a query which return the day of the week for any date entered in format ‘DD-MM-YY’.
+-- SELECT ENAME, DATE_FORMAT(HIREDATE, '%d-%m-%y') FROM EMP;
+SELECT HIREDATE, DAYOFWEEK(HIREDATE) AS DAY_WEEK, DAYOFMONTH(HIREDATE) AS DAY_MTH
+FROM EMP WHERE DATE_FORMAT(HIREDATE, '%d-%m-%y') = '12-01-83';
+
+-- 133. Write a query to calculate the length of service of any employee with the company, use
+-- DEFINE to avoid repetitive typing of functions.
+-- Dont know how to solve this in MySQL
+SELECT EMPNO, DATEDIFF(NOW(), HIREDATE)/(12 * 30) AS SVC_LEN_YRS FROM EMP;
+
+-- 134. Give a string of format ‘NN/NN’, verify that the first and last two characters are numbers
+-- and that the middle character is’/’. Print the expression ‘YES’ if valid, ‘NO’ if not valid.
+-- Use the following values to test your solution. ‘12/34’,’01/1a’, ‘99/98’.
+SELECT '12/34' REGEXP '^(dd\/dd)$';
+
+-- 135. Emps hired on or before 15th of any month are paid on the last Friday of that month
+-- those hired after 15th are paid on the first Friday of the following month. Print a list of emps
+-- their hire date and the first pay date. Sort on hire date.
+
+-- Googled for last day of the month. Got it here: https://stackoverflow.com/questions/5268030/last-friday-of-the-month-in-mysql?rq=1
+-- SELECT DATE_FORMAT(LAST_DAY(NOW()) - ((7 + WEEKDAY(LAST_DAY(NOW())) - 4) % 7), '%Y-%m-%d') AS Last_Friday
+
+SELECT ENAME, HIREDATE, DATE_FORMAT(LAST_DAY(HIREDATE) - ((7 + WEEKDAY(LAST_DAY(HIREDATE)) - 4) % 7), '%Y-%m-%d') AS PAYDAY
+FROM EMP
+WHERE DAYOFMONTH(HIREDATE) <= 15;
+-- can't solve this one.
+
+-- 136. Count the no. of characters with out considering spaces for each name.
+SELECT LENGTH(REPLACE(ENAME,' ', null)) FROM EMP;
+
+-- 137. Find out the emps who are getting decimal value in their Sal without using like operator.
+SELECT * FROM EMP WHERE INSTR(SAL,'.') > 0;
+
+-- 138. List those emps whose Salary contains first four digit of their Deptno.
+-- Need to verify! The question seems to be wrong.
+SELECT * FROM EMP e1 WHERE SAL = (
+  SELECT CONCAT(DEPTNO, DEPTNO) FROM EMP e2 WHERE e1.EMPNO = e2.EMPNO
+);
+
+-- 139. List those Managers who are getting less than his emps Salary.
+SELECT e.ENAME subordinate, e.SAL sub_sal, m.ENAME manager, m.SAL man_sal
+FROM EMP e, EMP m
+WHERE e.MGR = m.EMPNO
+AND e.SAL > m.SAL;
+
+-- 140. Print the details of all the emps who are sub-ordinates to Blake.
+SELECT * FROM EMP
+WHERE mgr = (
+  SELECT EMPNO FROM EMP WHERE ENAME = 'BLAKE'
+)
