@@ -149,3 +149,9 @@
 138. List those emps whose Salary contains first four digit of their Deptno.
 139. List those Managers who are getting less than his emps Salary.
 140. Print the details of all the emps who are sub-ordinates to Blake.
+141. List the emps who are working as Managers using co-related sub-query.
+142. List the emps whose Mgr name is ‘Jones’ and also with his Manager name.
+143. Define a variable representing the expression used to calculate on emps total annual remuneration use the variable in a statement, which finds all emps who can earn 30000 a year or more.
+144. Find out how may Managers are their in the company.
+145. Find Average salary and Average total remuneration for each Job type. Remember Salesman earn commission.secommm
+

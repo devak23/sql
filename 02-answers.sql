@@ -1026,3 +1026,46 @@ SELECT * FROM EMP
 WHERE mgr = (
   SELECT EMPNO FROM EMP WHERE ENAME = 'BLAKE'
 )
+
+-- 141. List the emps who are working as Managers using co-related sub-query.
+SELECT * FROM EMP WHERE EMPNO in (
+  SELECT EMPNO FROM EMP WHERE JOB = 'MANAGER'
+);
+
+SELECT * FROM EMP WHERE EMPNO IN ( SELECT MGR FROM EMP);
+
+-- 142. List the emps whose Mgr name is ‘Jones’ and also with his Manager name.
+SELECT ENAME as EMPLOYEE, 'JONES' as MANAGER 
+FROM EMP WHERE MGR = (
+  SELECT EMPNO FROM EMP WHERE ENAME = 'JONES'
+)
+UNION
+SELECT 'JONES' as employee, ENAME
+FROM EMP WHERE EMPNO = (
+  SELECT MGR FROM EMP WHERE ENAME = 'JONES'
+);
+
+
+SELECT e.ename,w.ename,m.ename 
+FROM EMP e,EMP w,EMP m 
+WHERE e.mgr = w.empno 
+AND w.ename = 'JONES'
+AND w.mgr = m.empno;
+
+
+-- 143. Define a variable representing the expression used to calculate on emps total annual remuneration use the variable 
+-- in a statement, which finds all emps who can earn 30000 a year or more.
+-- Dont know how to do this.
+SELECT SAL * 12 + IFNULL(COMM, 0) INTO @TOTAL_REMUNERATION FROM EMP WHERE SAL * 12 > 30000
+
+SELECT @TOTAL_REMUNERATION
+
+
+
+-- 144. Find out how may Managers are their in the company.
+SELECT COUNT(1) FROM EMP WHERE JOB = 'MANAGER';
+
+-- 145. Find Average salary and Average total remuneration for each Job type. Remember Salesman earn commission.secommm
+SELECT AVG(SAL), AVG(SAL + IFNULL(COMM,0)), JOB
+FROM EMP
+GROUP BY JOB;
