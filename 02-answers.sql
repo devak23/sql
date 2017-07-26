@@ -1069,3 +1069,42 @@ SELECT COUNT(1) FROM EMP WHERE JOB = 'MANAGER';
 SELECT AVG(SAL), AVG(SAL + IFNULL(COMM,0)), JOB
 FROM EMP
 GROUP BY JOB;
+
+-- 146. Check whether all the emps numbers are indeed unique.
+SELECT COUNT(EMPNO) FROM EMP GROUP BY EMPNO HAVING COUNT(EMPNO) > 1;
+
+-- 147. List the emps who are drawing less than 1000 Sort the output by Salary.
+SELECT * FROM EMP WHERE SAL < 1000 order by SAL DESC;
+
+-- 148. List the employee Name, Job, Annual Salary, deptno, Dept name and grade who earn 36000 a year or who are not CLERKS.
+SELECT e.ENAME, e.JOB, e.SAL * 12, e.DEPTNO, d.DNAME
+FROM EMP e INNER JOIN DEPT d on e.DEPTNO = d.DEPTNO
+WHERE e.SAL * 12  = 36000
+OR e.JOB = 'CLERK';
+
+-- 149. Find out the Job that was filled in the first half of 1983 and same job that was filled during the same period of 1984.
+-- I changed the HIREDATE of ADAMS to 1984-01-03 to get result for the query
+SELECT e.JOB, e.HIREDATE
+FROM EMP e
+WHERE e.HIREDATE BETWEEN '1984-01-01' AND '1984-07-01'
+AND JOB IN (
+  SELECT JOB FROM EMP WHERE HIREDATE BETWEEN '1984-01-01' AND '1984-07-01'
+)
+ORDER BY e.HIREDATE ASC;
+
+SELECT e.JOB, e.HIREDATE
+FROM EMP e
+WHERE MONTH(e.HIREDATE) <= 06
+AND YEAR(e.HIREDATE) = 1984
+AND e.JOB IN (
+  SELECT JOB FROM EMP
+  WHERE MONTH(HIREDATE) <= 06
+  AND YEAR(HIREDATE) <= 1983
+);
+
+-- 150. Find out the emps who joined in the company before their Managers.
+SELECT e.ENAME, e.HIREDATE, e.JOB as EMPLOYEE, m.JOB as MANAGER, m.ENAME, m.HIREDATE
+FROM EMP e, EMP m
+WHERE e.MGR = m.EMPNO
+--  AND m.JOB = 'MANAGER'
+AND e.HIREDATE < m.HIREDATE;

@@ -154,4 +154,9 @@
 143. Define a variable representing the expression used to calculate on emps total annual remuneration use the variable in a statement, which finds all emps who can earn 30000 a year or more.
 144. Find out how may Managers are their in the company.
 145. Find Average salary and Average total remuneration for each Job type. Remember Salesman earn commission.secommm
+146. Check whether all the emps numbers are indeed unique.
+147. List the emps who are drawing less than 1000 Sort the output by Salary.
+148. List the employee Name, Job, Annual Salary, deptno, Dept name and grade who earn 36000 a year or who are not CLERKS.
+149. Find out the Job that was filled in the first half of 1983 and same job that was filled during the same period of 1984.
+150. Find out the emps who joined in the company before their Managers.
 
