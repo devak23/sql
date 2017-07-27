@@ -164,5 +164,9 @@
 153. Find out all the emps who earn highest salary in each job type. Sort in descending salary order.
 154. Find out the most recently hired emps in each Dept order by Hiredate.
 155. List the employee name,Salary and Deptno for each employee who earns a salary greater than the average for their department order by Deptno.
-
+156. List the Deptno where there are no emps.
+157. List the No.of emp’s and Avg salary within each department for each job.
+158. Find the maximum average salary drawn for each job except for ‘President’.
+159. Find the name and Job of the emps who earn Max salary and Commission.
+160. List the Name, Job and Salary of the emps who are not belonging to the department 10 but who have the same job and Salary as the emps of dept 10.
 

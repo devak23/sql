@@ -1148,3 +1148,41 @@ FROM EMP e WHERE e.SAL > (
 )
 ORDER BY e.SAL ASC;
 
+-- 156. List the Deptno where there are no emps.
+SELECT * FROM DEPT WHERE DEPTNO NOT IN (
+  SELECT DISTINCT DEPTNO FROM EMP
+);
+
+SELECT * FROM DEPT d LEFT JOIN EMP e on d.DEPTNO = e.DEPTNO
+WHERE e.DEPTNO is NULL;
+
+SELECT * FROM EMP e RIGHT JOIN DEPT d on d.DEPTNO = e.DEPTNO
+WHERE e.DEPTNO is NULL;
+
+
+-- 157. List the No.of emp’s and Avg salary within each department for each job.
+SELECT DEPTNO, JOB, COUNT(EMPNO), AVG(SAL) FROM EMP GROUP BY DEPTNO, JOB;
+
+-- 158. Find the maximum average salary drawn for each job except for ‘President’.
+SELECT MAX(AVG_SAL), JOB FROM (
+  SELECT AVG(SAL) AS AVG_SAL, JOB FROM EMP WHERE JOB <> 'PRESIDENT' GROUP BY JOB
+) A;
+
+-- 159. Find the name and Job of the emps who earn Max salary and Commission.
+-- Need to verify this
+SELECT e.ENAME, e.JOB FROM EMP e WHERE SAL + IFNULL(COMM, 0) IN (
+  SELECT MAX(SAL + IFNULL(COMM, 0)) FROM EMP
+);
+
+-- 160. List the Name, Job and Salary of the emps who are not belonging to the department 10 but who have the same job and Salary as the emps of dept 10.
+-- The query produced zero rows because i didn't have the matching data. so I added the record of 'DAVID'
+-- to get at least a single match
+SELECT ENAME, JOB, DEPTNO, SAL
+FROM EMP
+WHERE DEPTNO <> 10
+AND JOB IN (
+  SELECT JOB FROM EMP WHERE DEPTNO = 10
+)
+AND SAL IN (
+  SELECT SAL FROM EMP WHERE DEPTNO = 10
+);
