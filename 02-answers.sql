@@ -1108,3 +1108,43 @@ FROM EMP e, EMP m
 WHERE e.MGR = m.EMPNO
 --  AND m.JOB = 'MANAGER'
 AND e.HIREDATE < m.HIREDATE;
+
+
+-- 151. List all the emps by name and number along with their Manager’s name and number. Also List KING who has no ‘Manager’.
+SELECT e.EMPNO as EMPLOYEE_NUMBER
+  , e.ENAME as EMPLOYEE_NAME
+  , m.ENAME as MANAGER_NAME
+  , m.EMPNO as MANAGER_NUMBER
+FROM EMP e
+  LEFT JOIN EMP m ON e.MGR = m.EMPNO;
+
+-- 152. Find all the emps who earn the minimum Salary for each job wise in ascending order
+SELECT * FROM EMP WHERE SAL IN (
+  SELECT MIN(SAL) FROM EMP GROUP BY JOB
+);
+
+-- 153. Find out all the emps who earn highest salary in each job type. Sort in descending salary order.
+SELECT * FROM EMP WHERE SAL IN (
+  SELECT MAX(SAL) FROM EMP GROUP BY JOB
+)
+ORDER BY SAL DESC;
+
+-- 154. Find out the most recently hired emps in each Dept order by Hiredate.
+SELECT * FROM EMP e WHERE HIREDATE IN (
+  SELECT MAX(HIREDATE) FROM EMP e1 where e1.DEPTNO = e.DEPTNO
+)
+ORDER BY HIREDATE ASC;
+
+-- 155. List the employee name,Salary and Deptno for each employee who earns a salary greater than the average for their department order by Deptno.
+SELECT e.ENAME, e.SAL, e.DEPTNO
+FROM EMP e, (SELECT AVG(SAL) as AVG_SAL, DEPTNO FROM EMP GROUP BY DEPTNO) A
+WHERE e.DEPTNO = A.DEPTNO
+  AND e.SAL > A.AVG_SAL
+ORDER BY e.SAL ASC;
+
+SELECT e.ENAME, e.SAL, e.DEPTNO
+FROM EMP e WHERE e.SAL > (
+  SELECT AVG(SAL) FROM EMP WHERE e.DEPTNO = DEPTNO
+)
+ORDER BY e.SAL ASC;
+

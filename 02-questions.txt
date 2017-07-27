@@ -159,4 +159,10 @@
 148. List the employee Name, Job, Annual Salary, deptno, Dept name and grade who earn 36000 a year or who are not CLERKS.
 149. Find out the Job that was filled in the first half of 1983 and same job that was filled during the same period of 1984.
 150. Find out the emps who joined in the company before their Managers.
+151. List all the emps by name and number along with their Manager’s name and number. Also List KING who has no ‘Manager’.
+152. Find all the emps who earn the minimum Salary for each job wise in ascending order
+153. Find out all the emps who earn highest salary in each job type. Sort in descending salary order.
+154. Find out the most recently hired emps in each Dept order by Hiredate.
+155. List the employee name,Salary and Deptno for each employee who earns a salary greater than the average for their department order by Deptno.
+
 
