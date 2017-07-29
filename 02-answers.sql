@@ -1186,3 +1186,49 @@ AND JOB IN (
 AND SAL IN (
   SELECT SAL FROM EMP WHERE DEPTNO = 10
 );
+
+
+-- 161. List the Deptno, Name, Job, Salary and Sal+Comm of the SALESMAN who are earning maximum salary and commission in descending order.
+SELECT e.DEPTNO, e.ENAME, e.JOB, e.SAL + IFNULL(e.COMM, 0)
+FROM EMP e
+WHERE JOB = 'SALESMAN'
+AND e.SAL = (
+  SELECT MAX(SAL) FROM EMP
+  WHERE COMM is not null
+  GROUP BY JOB
+);
+
+-- 162. List the Deptno, Name, Job, Salary and Sal+Comm of the emps who earn the second highest earnings (sal + comm.).
+SELECT e.DEPTNO, e.ENAME, e.JOB, e.SAL + IFNULL(e.COMM ,0)
+FROM EMP e
+WHERE 2 = (
+  SELECT COUNT(DISTINCT (SAL + IFNULL(COMM, 0))) FROM EMP WHERE e.SAL + IFNULL(e.COMM, 0) < SAL + IFNULL(COMM, 0)
+);
+
+-- 163. List the Deptno and their average salaries for dept with the average salary less than the averages for all department
+SELECT DEPTNO, AVG(SAL)
+FROM EMP
+GROUP BY DEPTNO
+HAVING AVG(SAL) < (
+  SELECT AVG(SAL)
+  FROM EMP
+);
+
+-- 164. List out the Names and Salaries of the emps along with their manager names and salaries for those emps who earn more salary than their Manager.
+SELECT e.ENAME, e.SAL, m.ENAME, m.SAL
+FROM EMP e INNER JOIN EMP m ON e.MGR = m.EMPNO
+WHERE e.SAL > m.SAL;
+
+-- 165. List out the Name, Job, Salary of the emps in the department with the highest average salary.
+SELECT ENAME, JOB, SAL, DEPTNO
+FROM EMP
+WHERE DEPTNO = (
+  SELECT DEPTNO FROM (
+    SELECT DEPTNO, MAX(AVG_SAL)
+    FROM (
+     SELECT AVG(SAL) as AVG_SAL, DEPTNO
+     FROM EMP
+     GROUP BY DEPTNO
+   ) A
+  ) B
+);

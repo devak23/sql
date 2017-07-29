@@ -169,4 +169,5 @@
 158. Find the maximum average salary drawn for each job except for ‘President’.
 159. Find the name and Job of the emps who earn Max salary and Commission.
 160. List the Name, Job and Salary of the emps who are not belonging to the department 10 but who have the same job and Salary as the emps of dept 10.
+161. List the Deptno, Name, Job, Salary and Sal+Comm of the SALESMAN who are earning maximum salary and commission in descending order.
 
