@@ -170,4 +170,19 @@
 159. Find the name and Job of the emps who earn Max salary and Commission.
 160. List the Name, Job and Salary of the emps who are not belonging to the department 10 but who have the same job and Salary as the emps of dept 10.
 161. List the Deptno, Name, Job, Salary and Sal+Comm of the SALESMAN who are earning maximum salary and commission in descending order.
+162. List the Deptno, Name, Job, Salary and Sal+Comm of the emps who earn the second highest earnings (sal + comm.).
+163. List the Deptno and their average salaries for dept with the average salary less than the averages for all department
+164. List out the Names and Salaries of the emps along with their manager names and salaries for those emps who earn more salary than their Manager.
+165. List out the Name, Job, Salary of the emps in the department with the highest average salary.
+166. List the empno,sal,comm. Of emps.
+167. List the details of the emps in the ascending order of the sal.
+168. List the dept in the ascending order of the job and the desc order of the emps print empno, ename.
+169. Display the unique dept of the emps.
+170. Display the unique dept with jobs.
+171. Display the details of the blake.
+172. List all the clerks.
+173. List all the employees joined on 1st may 81.
+174. List the empno,ename,sal,deptno of the dept 10 emps in the ascending order of salary.
+175. List the emps whose salaries are less than 3500.
+
 

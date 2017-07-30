@@ -1232,3 +1232,34 @@ WHERE DEPTNO = (
    ) A
   ) B
 );
+
+-- 166. List the empno,sal,comm. Of emps.
+SELECT EMPNO, SAL, COMM FROM EMP;
+
+-- 167. List the details of the emps in the ascending order of the sal.
+SELECT * FROM EMP ORDER BY SAL ASC;
+
+-- 168. List the dept in the ascending order of the job and the desc order of the emps print empno, ename.
+SELECT EMPNO, ENAME, JOB FROM EMP ORDER BY JOB ASC, EMPNO DESC;
+
+-- 169. Display the unique dept of the emps.
+SELECT DISTINCT DEPTNO FROM EMP;
+
+-- 170. Display the unique dept with jobs.
+-- Need to verify this. The oracle keyword is unique. the query is: SELECT UNIQUE DEPTNO, JOB FROM EMP
+SELECT DISTINCT DEPTNO, JOB FROM EMP GROUP BY JOB, EMPNO ORDER BY JOB ASC
+
+-- 171. Display the details of the blake.
+SELECT * FROM EMP WHERE ENAME = 'BLAKE';
+
+-- 172. List all the clerks.
+SELECT * FROM EMP WHERE JOB = 'CLERK';
+
+-- 173. List all the employees joined on 1st may 81.
+SELECT * FROM EMP WHERE HIREDATE = '1981-05-01';
+
+-- 174. List the empno,ename,sal,deptno of the dept 10 emps in the ascending order of salary.
+SELECT EMPNO, ENAME, SAL, DEPTNO FROM EMP WHERE DEPTNO = 10 ORDER BY SAL ASC;
+
+-- 175. List the emps whose salaries are less than 3500.
+SELECT * FROM EMP WHERE SAL < 3500;
