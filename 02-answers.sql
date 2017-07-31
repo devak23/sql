@@ -1263,3 +1263,36 @@ SELECT EMPNO, ENAME, SAL, DEPTNO FROM EMP WHERE DEPTNO = 10 ORDER BY SAL ASC;
 
 -- 175. List the emps whose salaries are less than 3500.
 SELECT * FROM EMP WHERE SAL < 3500;
+
+-- 176. List the empno,ename,sal of all the emp joined before 1 apr 81.
+SELECT EMPNO, ENAME, SAL FROM EMP WHERE HIREDATE < '1981-04-01';
+
+-- 177. List the emp whose annual sal is <25000 in the asc order of the salaries.
+SELECT * FROM EMP WHERE SAL * 12 < 25000;
+
+-- 178. List the empno,ename,annsal,dailysal  of all the salesmen in the asc ann sal
+SELECT EMPNO, ENAME, SAL * 12 AS ANNUAL_SAL, SAL AS DAILY_SAL
+FROM EMP WHERE JOB = 'SALESMAN';
+
+-- 179. List the empno,ename,hiredate,current date & exp in the ascending order of the exp.
+SELECT EMPNO, ENAME, HIREDATE, CURRENT_DATE(), DATEDIFF(NOW(), HIREDATE)/(12*30) AS EXP
+FROM EMP ORDER BY HIREDATE ASC;
+
+-- 180. List the emps whose exp is more than 10 years.
+SELECT * FROM EMP WHERE DATEDIFF(NOW(), HIREDATE)/(12 * 30) > 10;
+
+-- 181. List the empno,ename,sal,Basic 35%, TA 30%,DA 40%,HRA 50%,GROSS,10% LIC,20% PF, 8% PT, net,deduction,net allow and net sal in the ascending order of the net salary.
+SELECT EMPNO, ENAME,
+  SAL
+  , @gross := SAL * 12 AS GROSS
+  , ROUND(@basic := SAL * 0.35,2) as BASIC
+  , ROUND(@ta := @basic * 0.3,2) AS TA
+  , ROUND(@da := @basic * 0.4,2) AS DA
+  , ROUND(@hra := @basic * 0.5,2) AS HRA
+  , ROUND(@lic := @basic * 0.1,2) AS LIC
+  , ROUND(@pf := @basic * 0.2,2) AS PF
+  , ROUND(@pt := @basic * 0.08,2) AS PT
+  , ROUND(@ded := (@lic + @pt + @pf),2) AS DEDUCTIONS
+  , ROUND(@net := (@gross - @ded),2) AS NET_SAL
+FROM EMP
+ORDER BY @net ASC;

@@ -184,5 +184,11 @@
 173. List all the employees joined on 1st may 81.
 174. List the empno,ename,sal,deptno of the dept 10 emps in the ascending order of salary.
 175. List the emps whose salaries are less than 3500.
+176. List the empno,ename,sal of all the emp joined before 1 apr 81.
+177. List the emp whose annual sal is <25000 in the asc order of the salaries.
+178. List the empno,ename,annsal,dailysal  of all the salesmen in the asc ann sal
+179. List the empno,ename,hiredate,current date & exp in the ascending order of the exp.
+180. List the emps whose exp is more than 10 years.
+181. List the empno,ename,sal,TA30%,DA 40%,HRA 50%,GROSS,LIC,PF,net,deduction,net allow and net sal in the ascending order of the net salary.
 
 
