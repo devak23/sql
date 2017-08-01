@@ -1296,3 +1296,63 @@ SELECT EMPNO, ENAME,
   , ROUND(@net := (@gross - @ded),2) AS NET_SAL
 FROM EMP
 ORDER BY @net ASC;
+
+-- 182. List the emps who are working as managers.
+SELECT * FROM EMP WHERE JOB = 'MANAGER';
+
+-- 183. List the emps who are either clerks or managers.
+SELECT * FROM EMP WHERE JOB IN ('CLERK', 'MANAGER');
+
+-- 184. List the emps who have joined on the following dates 1 may 81,17 nov 81,30 dec 81
+SELECT * FROM EMP WHERE HIREDATE IN ('1981-05-01', '1981-11-17', '1981-12-30');
+
+-- 185. List the emps who have joined in the year 1981.
+SELECT * FROM EMP WHERE YEAR(HIREDATE) = 1981;
+
+-- 186. List the emps whose annual sal ranging from 23000 to 40000.
+SELECT * FROM EMP WHERE SAL*12 BETWEEN 23000 AND 40000;
+
+-- 187. List the emps working under the mgrs 7369,7890,7654,7900.
+SELECT * FROM EMP WHERE EMPNO IN (7369, 7890, 7654, 7900);
+
+-- 188. List the emps who joined in the second half of 82.
+SELECT * FROM EMP WHERE YEAR(HIREDATE) = 1982 AND MONTH(HIREDATE) > 06;
+
+-- 189. List all the 4char emps.
+SELECT * FROM EMP WHERE LENGTH(ENAME) = 4;
+
+-- 190. List the emp names starting with ‘M’ with 5 chars.
+SELECT * FROM EMP WHERE LENGTH(ENAME) = 5 AND ENAME LIKE 'M%';
+
+-- 191. List the emps end with ‘H’ all together 5 chars.
+SELECT * FROM EMP WHERE LENGTH(ENAME) AND ENAME LIKE '%H'
+
+-- 192. List names start with ‘M’.
+SELECT * FROM EMP WHERE ENAME LIKE 'M%';
+
+-- 193. List the emps who joined in the year 81.
+SELECT * FROM EMP WHERE YEAR(HIREDATE) = 1981;
+
+-- 194. List the emps whose sal is ending with 00.
+SELECT * FROM EMP WHERE SAL LIKE '%00.%';
+
+-- 195. List the emp who joined in the month of JAN.
+SELECT * FROM EMP WHERE MONTH(HIREDATE) = 1;
+
+-- 196. Who joined in the month having char ‘a’.
+SELECT * FROM EMP WHERE MONTHNAME(HIREDATE) LIKE '%A%';
+
+-- 197. Who joined in the month having second char ‘a’
+SELECT * FROM EMP WHERE MONTHNAME(HIREDATE) LIKE '_A%';
+
+-- 198. List the emps whose salary is 4 digit number.
+SELECT * FROM EMP WHERE SAL LIKE '____.%';
+-- OR
+SELECT * FROM EMP WHERE LENGTH(SAL) = 7;
+
+-- 199. List the emp who joined in 80’s.
+SELECT * FROM EMP WHERE YEAR(HIREDATE) = 1980;
+
+-- 200. List the emp who are clerks who have exp more than 8ys.
+SELECT * FROM EMP WHERE ENAME = 'CLERK' AND DATEDIFF(NOW(), HIREDATE)/(12 * 30) > 8;
+

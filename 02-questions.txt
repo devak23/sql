@@ -190,5 +190,24 @@
 179. List the empno,ename,hiredate,current date & exp in the ascending order of the exp.
 180. List the emps whose exp is more than 10 years.
 181. List the empno,ename,sal,TA30%,DA 40%,HRA 50%,GROSS,LIC,PF,net,deduction,net allow and net sal in the ascending order of the net salary.
+182. List the emps who are working as managers.
+183. List the emps who are either clerks or managers.
+184. List the emps who have joined on the following dates 1 may 81,17 nov 81,30 dec 81
+185. List the emps who have joined in the year 1981.
+186. List the emps whose annual sal ranging from 23000 to 40000.
+187. List the emps working under the mgrs 7369,7890,7654,7900.
+188. List the emps who joined in the second half of 82.
+189. List all the 4char emps.
+190. List the emp names starting with ‘M’ with 5 chars.
+191. List the emps end with ‘H’ all together 5 chars.
+192. List names start with ‘M’.
+193. List the emps who joined in the year 81.
+194. List the emps whose sal is ending with 00.
+195. List the emp who joined in the month of JAN.
+196. Who joined in the month having char ‘a’.
+197. Who joined in the month having second char ‘a’
+198. List the emps whose salary is 4 digit number.
+199. List the emp who joined in 80’s.
+200. List the emp who are clerks who have exp more than 8ys.
 
 
