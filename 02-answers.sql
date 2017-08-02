@@ -1356,3 +1356,45 @@ SELECT * FROM EMP WHERE YEAR(HIREDATE) = 1980;
 -- 200. List the emp who are clerks who have exp more than 8ys.
 SELECT * FROM EMP WHERE ENAME = 'CLERK' AND DATEDIFF(NOW(), HIREDATE)/(12 * 30) > 8;
 
+-- 201. List the mgrs of dept 10 or 20.
+SELECT MGR FROM EMP WHERE DEPTNO IN (10, 20);
+
+-- 202. List the emps joined in jan with salary ranging from 1500 to 4000.
+SELECT * FROM EMP WHERE MONTHNAME(HIREDATE) = 'JAN' AND SAL BETWEEN 1500 AND 4000;
+
+-- 203. List the unique jobs of dept 20 and 30 in desc order.
+SELECT DISTINCT JOB FROM EMP WHERE DEPTNO IN (20, 30);
+
+-- 204. List the emps along with exp of those working under the mgr whose number is starting with 7 but should not have a 9, joined before 1983.
+SELECT ENAME, @exp := ROUND(DATEDIFF(NOW(), HIREDATE)/(12 * 30), 1) as EXP, MGR, HIREDATE
+FROM EMP WHERE MGR LIKE '7%'
+AND MGR <> '%9%'
+AND YEAR(HIREDATE) < 1983
+ORDER BY @exp DESC;
+
+-- 205. List the emps who are working as either mgr or analyst with the salary ranging from 2000 to 5000 and with out comm.
+SELECT * FROM EMP WHERE JOB IN ('MANAGER', 'ANALYST') AND SAL BETWEEN 2000 AND 5000 AND COMM IS NULL;
+
+-- 206. List the empno,ename,sal,job of the emps with /ann sal <34000 but receiving some comm. Which should not be>sal and desg should be sales man working for dept 30.
+SELECT EMPNO, ENAME, SAL, JOB, (@annual_salary := SAL * 12 + IFNULL(COMM, 0)) as ANN_SAL
+FROM EMP WHERE DEPTNO = 30
+AND JOB = 'SALESMAN'
+AND @annual_salary < 34000
+AND IFNULL(COMM, 0) < SAL;
+
+-- 207. List the emps who are working for dept 10 or 20 with desgs as clerk or analyst
+-- with a sal is either 3 or 4 digits with an exp>8ys but does not belong to months of mar,apr,sep
+-- and working for mgrs  & no is not ending with 88 and 56.
+
+-- the question is not formulated the correctly. The last clause could make you believe that you need
+-- to find emps who are working for manager and their empno's should not end with 88 and 56. However
+-- what it means find emps whose manager's number should not end with 88 or 56
+
+SELECT * FROM EMP
+WHERE DEPTNO IN (10, 20)
+AND JOB IN ('CLERK', 'ANALYST')
+AND LENGTH(SAL) IN (6,7)
+AND DATEDIFF(NOW(), HIREDATE)/(12 * 30) > 8
+AND MONTHNAME(HIREDATE) NOT IN ('MAR', 'APR', 'SEP')
+AND (MGR NOT LIKE '%88' OR MGR NOT LIKE '%56');
+

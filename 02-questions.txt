@@ -209,5 +209,13 @@
 198. List the emps whose salary is 4 digit number.
 199. List the emp who joined in 80’s.
 200. List the emp who are clerks who have exp more than 8ys.
+201. List the mgrs of dept 10 or 20.
+202. List the emps joined in jan with salary ranging from 1500 to 4000.
+203. List the unique jobs of dept 20 and 30 in desc order.
+204. List the emps along with exp of those working under the mgr whose number is starting with 7 but should not have a 9, joined before 1983.
+205. List the emps who are working as either mgr or analyst with the salary ranging from 2000 to 5000 and with out comm.
+206. List the empno,ename,sal,job of the emps with /ann sal <34000 but receiving some comm. Which should not be>sal and desg should be sales man working for dept 30.
+207. List the emps who are working for dept 10 or 20 with desgs as clerk or analyst with a sal is either 3 or 4 digits with an exp>8ys but does not belong to months of mar,apr,sep and working for mgrs  & no is not ending with 88 and 56.
+
 
 
