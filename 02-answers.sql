@@ -1398,3 +1398,54 @@ AND DATEDIFF(NOW(), HIREDATE)/(12 * 30) > 8
 AND MONTHNAME(HIREDATE) NOT IN ('MAR', 'APR', 'SEP')
 AND (MGR NOT LIKE '%88' OR MGR NOT LIKE '%56');
 
+
+-- 208. List the empno,ename,sal,job,deptno&exp of all the emps belongs to dept 10 or 20
+-- with an exp 36 to 40 y working under the same mgr without comm
+-- With a job not ending irrespective of the position with comm.>200
+-- with exp>=7y and sal<2500 but not belongs to the month sep or nov
+-- working under the mgr whose no is not having digits either 9 or 0
+-- in the asc dept& desc dept
+-- (trouble in paradise... I didn't understand the second clause here)
+
+-- 208.1 List the empno,ename,sal,job,deptno&exp of all the emps belongs to dept 10 or 20 with an exp 36 to 40 y working under the same mgr without comm
+SELECT e.ENAME as EMPLOYEE , m.ENAME AS MANAGER , e.SAL, e.COMM, e.JOB, e.DEPTNO , A.EXP
+FROM EMP e, EMP m, (
+  SELECT ROUND(DATEDIFF(NOW(), HIREDATE)/(12 * 30),1) AS EXP, EMPNO FROM EMP
+) A
+WHERE e.DEPTNO in (10, 20)
+AND e.EMPNO = A.EMPNO
+AND (e.COMM IS NULL or e.COMM = 0)
+AND A.EXP between 35.0 AND 36.0;
+
+
+-- 209. List the details of the emps working at Chicago.
+SELECT e.EMPNO, e.ENAME, e.JOB, d.LOC, d.DNAME
+FROM EMP e INNER JOIN DEPT d on e.DEPTNO = d.DEPTNO
+WHERE d.LOC = 'CHICAGO';
+
+-- 210. List the empno,ename,deptno,loc of all the emps.
+SELECT E.EMPNO, E.ENAME, E.DEPTNO, D.LOC FROM EMP E INNER JOIN DEPT D ON E.DEPTNO = D.DEPTNO;
+
+-- 211. List the empno,ename,loc,dname of all the depts.,10 and 20.
+SELECT E.EMPNO, E.ENAME, E.DEPTNO, D.LOC FROM EMP E INNER JOIN DEPT D ON E.DEPTNO = D.DEPTNO WHERE D.DEPTNO IN (10, 20);
+
+-- 212. List the empno, ename, sal, loc of the emps working at Chicago dallas with an exp>6ys.
+SELECT E.EMPNO, E.ENAME, E.DEPTNO, E.SAL, D.LOC FROM EMP E INNER JOIN DEPT D ON E.DEPTNO = D.DEPTNO
+WHERE D.LOC = 'CHICAGO' AND ROUND(DATEDIFF(NOW(), HIREDATE)/(12 * 30),1) > 6.0;
+
+-- 213. List the emps along with loc of those who belongs to dallas ,newyork with sal ranging from 2000 to 5000 joined in 81.
+SELECT D.LOC, E.* FROM EMP E, DEPT D
+WHERE E.DEPTNO = D.DEPTNO
+AND D.LOC IN ('DALLAS', 'NEWYORK')
+AND SAL BETWEEN 2000 AND 5000
+AND YEAR(HIREDATE) = 1981;
+
+-- 214. List the empno,ename,sal,grade of all emps.
+SELECT EMPNO, ENAME, SAL, GRADE FROM EMP, SALGRADE WHERE SAL BETWEEN LOSAL AND HISAL;
+
+-- 215. List the grade 2 and 3 emp of Chicago.
+SELECT * FROM EMP, SALGRADE WHERE SAL BETWEEN LOSAL AND HISAL AND GRADE IN (2,3);
+
+-- 216. List the emps with loc and grade of accounting dept or the locs dallas or Chicago with the grades 3 to 5 &exp >6y
+
+

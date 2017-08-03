@@ -216,6 +216,14 @@
 205. List the emps who are working as either mgr or analyst with the salary ranging from 2000 to 5000 and with out comm.
 206. List the empno,ename,sal,job of the emps with /ann sal <34000 but receiving some comm. Which should not be>sal and desg should be sales man working for dept 30.
 207. List the emps who are working for dept 10 or 20 with desgs as clerk or analyst with a sal is either 3 or 4 digits with an exp>8ys but does not belong to months of mar,apr,sep and working for mgrs  & no is not ending with 88 and 56.
+208. List the empno,ename,sal,job,deptno&exp of all the emps belongs to dept 10 or 20 with an exp 36 to 40 y working under the same mgr without comm With a job not ending irrespective of the position with comm.>200 with exp>=7y and sal<2500 but not belongs to the month sep or nov working under the mgr whose no is not having digits either 9 or 0 in the asc dept& desc dept
+209. List the details of the emps working at Chicago.
+210. List the empno,ename,deptno,loc of all the emps.
+211. List the empno,ename,loc,dname of all the depts.,10 and 20.
+212. List the empno, ename, sal, loc of the emps working at Chicago dallas with an exp>6ys.
+213. List the emps along with loc of those who belongs to dallas ,newyork with sal ranging from 2000 to 5000 joined in 81.
+214. List the empno,ename,sal,grade of all emps.
+215. List the grade 2 and 3 emp of Chicago.
 
 
 
