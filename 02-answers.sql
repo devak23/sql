@@ -1447,5 +1447,68 @@ SELECT EMPNO, ENAME, SAL, GRADE FROM EMP, SALGRADE WHERE SAL BETWEEN LOSAL AND H
 SELECT * FROM EMP, SALGRADE WHERE SAL BETWEEN LOSAL AND HISAL AND GRADE IN (2,3);
 
 -- 216. List the emps with loc and grade of accounting dept or the locs dallas or Chicago with the grades 3 to 5 &exp >6y
+SELECT d.LOC, e.*
+FROM EMP e, DEPT d, SALGRADE s
+WHERE e.DEPTNO = d.DEPTNO
+AND e.SAL BETWEEN s.LOSAL AND s.HISAL
+AND d.DNAME = 'ACCOUNTING' OR d.LOC IN ('DALLAS', 'CHICAGO')
+AND s.GRADE BETWEEN 3 AND 5
+AND DATEDIFF(NOW(), HIREDATE)/(12*30) > 6;
+
+-- 217. List the grades 3 emps of research and operations depts.. joined after 1987 and whose names should not be either miller or allen.
+SELECT E.*, D.DNAME
+FROM EMP E, SALGRADE S, DEPT D
+WHERE E.DEPTNO = D.DEPTNO
+AND E.SAL BETWEEN S.LOSAL AND S.HISAL
+AND D.DNAME IN ('RESEARCH', 'OPERATIONS')
+AND YEAR(E.HIREDATE) > 1987
+AND E.ENAME NOT IN ('MILLER', 'ALLEN');
+
+-- 218. List the emps whose job is same as smith.
+SELECT * FROM EMP WHERE JOB = (SELECT JOB FROM EMP WHERE ENAME = 'SMITH');
+
+-- 219. List the emps who are senior to miller.
+SELECT * FROM EMP WHERE HIREDATE < (SELECT HIREDATE FROM EMP WHERE ENAME = 'MILLER');
+
+-- 220. List the emps whose job is same as either allen or sal > allen.
+SELECT * FROM EMP WHERE JOB = (
+  SELECT JOB FROM EMP WHERE ENAME = 'ALLEN'
+)
+OR SAL > ( SELECT SAL FROM EMP WHERE ENAME = 'ALLEN')
+ORDER BY SAL;
+
+-- 221. List the emps who are senior to their own manager.
+SELECT E.ENAME AS EMP_NAME, M.ENAME AS MANAGER, E.HIREDATE, M.HIREDATE
+FROM EMP E, EMP M
+WHERE E.MGR = M.EMPNO
+AND E.HIREDATE < M.HIREDATE;
+
+-- 222. List the emps whose sal greater than blakes sal.
+SELECT * FROM EMP WHERE SAL > (SELECT SAL FROM EMP WHERE ENAME = 'BLAKE');
+
+-- 223. List the dept 10 emps whose sal>allen sal.
+SELECT * FROM EMP WHERE DEPTNO = 10 AND SAL > (SELECT SAL FROM EMP WHERE ENAME = 'ALLEN');
+
+-- 224. List the mgrs who are senior to king and who are junior to smith.
+SELECT * FROM EMP
+WHERE EMPNO IN (SELECT DISTINCT MGR FROM EMP)
+AND HIREDATE < (SELECT HIREDATE FROM EMP WHERE ENAME = 'KING')
+AND HIREDATE > (SELECT HIREDATE DATE FROM EMP WHERE ENAME = 'SMITH');
+
+-- 225. List the empno,ename,loc,sal,dname of the all the emps belonging to king dept.
+SELECT E.EMPNO, E.ENAME, D.LOC, E.SAL, D.DNAME
+FROM EMP E INNER JOIN DEPT D ON E.DEPTNO = D.DEPTNO
+AND E.DEPTNO = ( SELECT DEPTNO FROM EMP WHERE ENAME = 'KING');
+
+-- 226. List the emps whose salgrade are greater than the grade of miller.
+SELECT * FROM EMP, SALGRADE
+WHERE EMP.SAL BETWEEN SALGRADE.LOSAL AND SALGRADE.HISAL
+AND SALGRADE.GRADE = (
+  SELECT S.GRADE
+  FROM EMP E, SALGRADE S
+  WHERE E.SAL BETWEEN  S.LOSAL AND S.HISAL
+  AND E.ENAME = 'MILLER'
+);
+
 
 

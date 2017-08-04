@@ -224,6 +224,17 @@
 213. List the emps along with loc of those who belongs to dallas ,newyork with sal ranging from 2000 to 5000 joined in 81.
 214. List the empno,ename,sal,grade of all emps.
 215. List the grade 2 and 3 emp of Chicago.
+216. List the emps with loc and grade of accounting dept or the locs dallas or Chicago with the grades 3 to 5 &exp >6y
+217. List the grades 3 emps of research and operations depts.. joined after 1987 and whose names should not be either miller or allen.
+218. List the emps whose job is same as smith.
+219. List the emps who are senior to miller.
+220. List the emps whose job is same as either allen or sal > allen.
+221. List the emps who are senior to their own manager.
+222. List the emps whose sal greater than blakes sal.
+223. List the dept 10 emps whose sal>allen sal.
+224. List the mgrs who are senior to king and who are junior to smith.
+225. List the empno,ename,loc,sal,dname of the all the emps belonging to king dept.
+226. List the emps whose salgrade are greater than the grade of miller.
 
 
 
