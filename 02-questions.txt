@@ -235,6 +235,15 @@
 224. List the mgrs who are senior to king and who are junior to smith.
 225. List the empno,ename,loc,sal,dname of the all the emps belonging to king dept.
 226. List the emps whose salgrade are greater than the grade of miller.
-
-
-
+227. List the emps who are belonging dallas or Chicago with the grade same as adams or exp more than smith.
+228. List the emps whose sal is same as ford or blake.
+229. List the emps whose sal is same as any other employee in the company.
+230. List the emps whose sal is same as Sal of any clerk of emp1 table.
+231. List the emps whose sal is same as any emp joined before 82.
+232. List the emps whose sal is same as the total remuneration (sal+comm.) of all sales person of Sales dept belonging to emp table.
+233. List the emps whose sal is same as any other Grade 4 emps of emp table.
+234. List the emps whose sal is same as any emp of emp table
+235. List the highest paid emp.
+236. List the details of most recently hired emp of dept 30.
+237. List the highest paid emp of Chicago joined before the most recently hired emp of grade 2.
+238. List the highest paid emp working under king.

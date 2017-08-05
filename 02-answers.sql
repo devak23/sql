@@ -1512,3 +1512,78 @@ AND SALGRADE.GRADE = (
 
 
 
+-- 227. List the emps who are belonging dallas or Chicago with the grade same as adams or exp more than smith.
+SELECT * FROM EMP e, SALGRADE s, DEPT d
+WHERE e.SAL BETWEEN s.LOSAL AND s.HISAL
+AND e.DEPTNO = d.DEPTNO
+AND d.LOC IN ('DALLAS', 'CHICAGO')
+AND s.GRADE = (
+  SELECT s1.GRADE FROM EMP e1, SALGRADE s1 WHERE e1.SAL BETWEEN s1.LOSAL AND s1.HISAL AND e1.ENAME = 'SMITH'
+);
+
+-- 228. List the emps whose sal is same as ford or blake.
+SELECT * FROM EMP WHERE SAL IN (
+  SELECT SAL FROM EMP WHERE ENAME IN ('FORD', 'BLAKE')
+);
+
+-- 229. List the emps whose sal is same as any other employee in the company.
+SELECT * FROM EMP e1 WHERE e1.SAL IN (
+  SELECT e2.SAL FROM EMP e2 WHERE e1.EMPNO <> e2.EMPNO
+);
+
+-- 230. List the emps whose sal is same as Sal of any clerk of emp1 table.
+SELECT SAL FROM EMP WHERE JOB = 'CLERK';
+
+-- 231. List the emps whose sal is same as any emp joined before 82.
+SELECT * FROM EMP WHERE YEAR(HIREDATE) < 1982;
+
+-- 232. List the emps whose sal is same as the total remuneration (sal+comm.) of all sales person of Sales dept belonging to emp table.
+-- i feel that the join with DEPT is irrelevant
+SELECT E.SAL + IFNULL(E.COMM, 0) FROM EMP E, DEPT D
+WHERE E.JOB = 'SALESMAN'
+AND E.DEPTNO = D.DEPTNO
+AND D.DNAME = 'SALES';
+
+-- 233. List the emps whose sal is same as any other Grade 4 emps of emp table.
+SELECT * FROM EMP WHERE SAL IN (
+  SELECT E.SAL FROM EMP E, SALGRADE S WHERE E.SAL BETWEEN S.LOSAL AND S.HISAL AND S.GRADE = 4
+);
+
+-- 234. List the emps whose sal is same as Any emp Sal of emp table
+-- duplicate of #229
+
+-- 235. List the highest paid emp.
+SELECT * FROM EMP WHERE SAL = (
+  SELECT MAX(SAL) FROM EMP
+);
+
+-- 236. List the details of most recently hired emp of dept 30.
+SELECT * FROM EMP WHERE HIREDATE = (
+  SELECT MAX(HIREDATE) FROM EMP
+);
+
+-- 237. List the highest paid emp of Chicago joined before the most recently hired emp of grade 2.
+SELECT * FROM EMP
+WHERE SAL = (
+  SELECT MAX(SAL) FROM EMP INNER JOIN DEPT ON EMP.DEPTNO = DEPT.DEPTNO
+  WHERE DEPT.LOC = 'CHICAGO'
+)
+AND HIREDATE < (
+  SELECT DISTINCT HIREDATE
+  FROM EMP
+  WHERE HIREDATE = (
+    SELECT MAX(e.HIREDATE) FROM EMP e, SALGRADE s WHERE e.SAL BETWEEN s.LOSAL AND s.HISAL AND s.GRADE = 2
+  )
+);
+
+
+-- 238. List the highest paid emp working under king.
+SELECT * FROM EMP WHERE MGR = (
+  SELECT EMPNO FROM EMP WHERE ENAME = 'KING'
+)
+AND SAL = (
+  SELECT MAX(SAL) FROM EMP WHERE MGR = (
+    SELECT EMPNO FROM EMP WHERE ENAME = 'KING'
+  )
+);
+
